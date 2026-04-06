@@ -1,405 +1,733 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LERN-APP V4 — LERNSTAR</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>LERN-APP</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f5f4f0;min-height:100vh;padding:1rem}
-#app{max-width:600px;margin:0 auto}
-.screen{display:none}.screen.active{display:block}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;font-size:13px;color:#666}
-.sv{font-weight:500;color:#1a1a1a}
-.home-header{text-align:center;padding:.5rem 0 .75rem}
-.home-header h1{font-size:18px;font-weight:500;color:#1a1a1a}
-.home-header p{font-size:12px;color:#666;margin-top:2px}
-.sec{font-size:10px;font-weight:500;color:#888;letter-spacing:.6px;text-transform:uppercase;margin:.75rem 0 .4rem}
-.mgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:.25rem}
-.mc{background:#fff;border:1px solid #e0ddd6;border-radius:12px;padding:.65rem .4rem;text-align:center;cursor:pointer;transition:transform .1s}
-.mc:hover{transform:scale(1.03);border-color:#bbb}.mc:active{transform:scale(0.97)}
-.mc .icon{font-size:20px;margin-bottom:3px}
-.mc h3{font-size:11px;font-weight:500;color:#1a1a1a;margin-bottom:1px}
-.mc p{font-size:10px;color:#666}
-.mc.adv{border-color:#7F77DD;background:#faf9ff}
-.tc{background:#fff;border:1px solid #e0ddd6;border-radius:12px;padding:1.1rem;margin-bottom:.75rem}
-.tc h2{font-size:15px;font-weight:500;color:#1a1a1a;margin-bottom:2px}
-.tc .sub{font-size:11px;color:#666;margin-bottom:.75rem}
-.bd{font-size:44px;text-align:center;padding:.65rem;background:#f5f4f0;border-radius:8px;margin-bottom:.75rem;line-height:1.2;font-family:monospace;font-weight:700;letter-spacing:2px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:.65rem}
-.ob{padding:9px 6px;border:1px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#1a1a1a;transition:all .1s;line-height:1.3;font-family:monospace;letter-spacing:1px}
-.ob:hover{background:#f5f4f0}
-.ob.correct{background:#EAF3DE;border-color:#639922;color:#27500A}
-.ob.wrong{background:#FCEBEB;border-color:#E24B4A;color:#791F1F}
-.fb{text-align:center;padding:.55rem;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:.65rem;min-height:40px;font-family:monospace}
-.fb.good{background:#EAF3DE;color:#27500A}.fb.bad{background:#FCEBEB;color:#791F1F}.fb.empty{opacity:0}
-.pb{height:4px;background:#e0ddd6;border-radius:3px;margin-bottom:1rem;overflow:hidden}
-.pf{height:100%;border-radius:3px;background:#7F77DD;transition:width .4s}
-.btn{padding:7px 14px;border:1px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;font-size:12px;color:#1a1a1a;font-weight:600;transition:all .1s;font-family:monospace}
-.btn:hover{background:#f5f4f0}
-.btn.p{background:#7F77DD;border-color:#3C3489;color:#fff}.btn.p:hover{opacity:.9}
-.btn.speak{background:#f5f4f0;padding:7px 12px;font-size:18px;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid #ccc}
-.br{display:flex;gap:7px;justify-content:space-between;align-items:center}
-.wi{width:100%;padding:9px;border:1px solid #ccc;border-radius:8px;font-size:16px;text-align:center;font-family:monospace;color:#1a1a1a;background:#fff;letter-spacing:2px;text-transform:uppercase;font-weight:700}
-.wi:focus{outline:none;border-color:#7F77DD;box-shadow:0 0 0 2px rgba(127,119,221,.2)}
-.ng{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:.65rem}
-.nb{padding:11px;border:1px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;font-size:18px;font-weight:700;color:#1a1a1a;transition:all .1s;font-family:monospace}
-.nb:hover{background:#f5f4f0}
-.res{text-align:center;padding:1.5rem 1rem}
-.res .tr{font-size:44px;margin-bottom:.65rem}
-.res h2{font-size:18px;font-weight:700;margin-bottom:.35rem;color:#1a1a1a;font-family:monospace}
-.res p{font-size:13px;color:#666;margin-bottom:1rem;font-family:monospace}
-.bg{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
-.badge{padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700;background:#FAEEDA;color:#633806;font-family:monospace}
-.badge.adv{background:#EEEDFE;color:#3C3489}
-.pr{display:flex;justify-content:center;margin-bottom:.75rem}
-.prow{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:.75rem;min-height:48px}
-.pi{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;background:#f5f4f0;border:1px solid #e0ddd6;font-family:monospace}
-.pi.q{background:#fff;border:2px dashed #aaa}
-.logic-box{background:#f5f4f0;border-radius:8px;padding:.75rem;margin-bottom:.75rem;font-size:13px;color:#1a1a1a;line-height:1.7;font-family:monospace;font-weight:600;white-space:pre-line;flex:1}
+  :root {
+    --bg: #f0f4ff;
+    --card: #ffffff;
+    --primary: #4361ee;
+    --primary-light: #e8edff;
+    --green: #2dc653;
+    --green-light: #d4f5de;
+    --red: #e63946;
+    --red-light: #fde8ea;
+    --yellow: #ffd60a;
+    --yellow-light: #fff8d6;
+    --orange: #ff6b35;
+    --purple: #7b2d8b;
+    --purple-light: #f3e8f7;
+    --star: #ffd60a;
+    --text: #1a1a2e;
+    --text-soft: #5a5a7a;
+    --radius: 20px;
+    --shadow: 0 4px 20px rgba(67,97,238,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+    font-size: 18px;
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+  #header {
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(67,97,238,0.3);
+  }
+  #header h1 { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
+  #star-display {
+    background: var(--yellow);
+    color: #1a1a2e;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-weight: 900;
+    font-size: 1rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ── MAIN MENU ──────────────────────────────── */
+  #menu {
+    padding: 20px 16px 40px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .category-title {
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--text-soft);
+    margin: 28px 0 12px;
+    text-transform: uppercase;
+  }
+  .category-title.gifted { color: var(--purple); }
+
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  @media(min-width:500px) { .game-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .game-btn {
+    background: var(--card);
+    border: 3px solid transparent;
+    border-radius: var(--radius);
+    padding: 18px 10px 14px;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    box-shadow: var(--shadow);
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .game-btn:active { transform: scale(0.96); }
+  .game-btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(67,97,238,0.18); border-color: var(--primary); }
+  .game-btn .icon  { font-size: 2.2rem; }
+  .game-btn .label { font-size: 0.72rem; font-weight: 900; letter-spacing: 1.5px; text-align: center; color: var(--text); }
+  .game-btn.gifted { border-color: var(--purple-light); }
+  .game-btn.gifted:hover { border-color: var(--purple); }
+  .game-btn.gifted .label { color: var(--purple); }
+
+  /* ── BADGES ─────────────────────────────────── */
+  #badges {
+    margin-top: 32px;
+    background: var(--yellow-light);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+  }
+  #badges h3 { font-size: 0.75rem; letter-spacing: 2px; font-weight: 900; color: var(--text-soft); margin-bottom: 10px; }
+  .badge-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .badge {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    background: #eee;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    filter: grayscale(1);
+    transition: filter .3s, border-color .3s;
+  }
+  .badge.earned { filter: none; border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(255,214,10,0.3); }
+
+  /* ── GAME SCREEN ────────────────────────────── */
+  #game-screen {
+    display: none;
+    padding: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  #back-btn {
+    background: none; border: none;
+    font-size: 1rem; font-weight: 900; letter-spacing: 1px;
+    color: var(--primary); cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 0 16px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #progress-bar-wrap {
+    height: 10px; border-radius: 10px;
+    background: #dde3ff;
+    margin-bottom: 18px; overflow: hidden;
+  }
+  #progress-bar {
+    height: 100%; border-radius: 10px;
+    background: var(--primary);
+    transition: width .4s ease;
+  }
+
+  #question-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 20px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+
+  #q-label {
+    font-size: 0.65rem; letter-spacing: 3px;
+    font-weight: 900; color: var(--text-soft);
+    margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;
+  }
+
+  #tts-btn {
+    background: var(--primary-light);
+    border: none; border-radius: 30px;
+    padding: 5px 12px; cursor: pointer;
+    font-size: 0.75rem; font-weight: 900;
+    color: var(--primary); letter-spacing: 1px;
+    display: flex; align-items: center; gap: 5px;
+    transition: background .15s;
+  }
+  #tts-btn:hover { background: #d0d8ff; }
+  #tts-btn:active { transform: scale(0.95); }
+
+  #q-text {
+    font-size: 1.5rem; font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    font-family: 'Courier New', monospace;
+  }
+
+  #q-emoji { font-size: 2.8rem; margin: 10px 0; display: block; text-align: center; }
+
+  .answer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .ans-btn {
+    background: var(--primary-light);
+    border: 3px solid transparent;
+    border-radius: 14px;
+    padding: 14px 10px;
+    font-size: 1rem; font-weight: 900;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    cursor: pointer; text-align: center;
+    transition: background .15s, border-color .15s, transform .1s;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--text);
+  }
+  .ans-btn:active { transform: scale(0.97); }
+  .ans-btn:hover  { border-color: var(--primary); background: #d0d8ff; }
+  .ans-btn.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+  .ans-btn.wrong   { background: var(--red-light); border-color: var(--red); color: var(--red); }
+  .ans-btn.disabled { pointer-events: none; }
+
+  /* gifted variant */
+  .gifted-game .ans-btn { background: var(--purple-light); }
+  .gifted-game .ans-btn:hover { border-color: var(--purple); background: #e8d5f0; }
+  .gifted-game #progress-bar { background: var(--purple); }
+
+  #feedback {
+    min-height: 36px;
+    font-size: 1.1rem; font-weight: 900; letter-spacing: 1px;
+    text-align: center; padding: 8px 0;
+    font-family: 'Courier New', monospace;
+  }
+  #feedback.ok  { color: var(--green); }
+  #feedback.err { color: var(--red); }
+
+  /* ── RESULT SCREEN ──────────────────────────── */
+  #result-screen {
+    display: none;
+    padding: 30px 20px;
+    max-width: 500px; margin: 0 auto;
+    text-align: center;
+  }
+  #result-screen .big-emoji { font-size: 5rem; margin-bottom: 10px; }
+  #result-screen h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; font-family: 'Courier New', monospace; }
+  #result-screen p { color: var(--text-soft); margin-bottom: 24px; font-size: 1rem; }
+  .result-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .result-btns button {
+    padding: 14px 24px; border: none; border-radius: 14px;
+    font-size: 0.9rem; font-weight: 900; letter-spacing: 1.5px;
+    cursor: pointer; transition: transform .1s;
+    font-family: 'Courier New', monospace;
+  }
+  .result-btns button:active { transform: scale(0.97); }
+  #btn-again { background: var(--primary); color: #fff; }
+  #btn-menu  { background: var(--yellow); color: var(--text); }
 </style>
 </head>
 <body>
-<div id="app">
 
-<div id="home" class="screen active">
-  <div class="home-header">
-    <div style="font-size:20px;letter-spacing:3px;margin-bottom:4px">⭐⭐⭐</div>
-    <h1>HALLO, LERNSTAR!</h1>
-    <p>Was übst du heute?</p>
-  </div>
-  <div class="topbar"><span>STERNE GESAMT</span><span class="sv" id="ts">0 ⭐</span></div>
-
-  <div class="sec">📖 SPRACHE & LESEN</div>
-  <div class="mgrid">
-    <div class="mc" onclick="sg('anlaut')"><div class="icon">🔊</div><h3>ANLAUTE</h3><p>Erster Laut</p></div>
-    <div class="mc" onclick="sg('reim')"><div class="icon">🎵</div><h3>REIMEN</h3><p>Reimwörter</p></div>
-    <div class="mc" onclick="sg('silbe')"><div class="icon">🗣️</div><h3>SILBEN</h3><p>Klopfen</p></div>
-    <div class="mc" onclick="sg('wort')"><div class="icon">📝</div><h3>WÖRTER</h3><p>Schreiben</p></div>
-    <div class="mc" onclick="sg('wortbau')"><div class="icon">🧱</div><h3>WORTBAU</h3><p>Zusammen</p></div>
-    <div class="mc" onclick="sg('englisch')"><div class="icon">🇬🇧</div><h3>ENGLISCH</h3><p>Erste Wörter</p></div>
-  </div>
-
-  <div class="sec">🔢 MATHE & LOGIK</div>
-  <div class="mgrid">
-    <div class="mc" onclick="sg('zahl')"><div class="icon">🔢</div><h3>ZAHLEN</h3><p>Zählen</p></div>
-    <div class="mc" onclick="sg('rechnen')"><div class="icon">➕</div><h3>RECHNEN</h3><p>Plus & Minus</p></div>
-    <div class="mc" onclick="sg('muster')"><div class="icon">🔷</div><h3>MUSTER</h3><p>Was kommt?</p></div>
-    <div class="mc" onclick="sg('form')"><div class="icon">🔵</div><h3>FORMEN</h3><p>Geometrie</p></div>
-    <div class="mc" onclick="sg('geld')"><div class="icon">💶</div><h3>GELD</h3><p>Münzen</p></div>
-    <div class="mc" onclick="sg('uhr')"><div class="icon">🕐</div><h3>UHRZEIT</h3><p>Ablesen</p></div>
-  </div>
-
-  <div class="sec">🌍 WELT & WISSEN</div>
-  <div class="mgrid">
-    <div class="mc" onclick="sg('flagge')"><div class="icon">🌍</div><h3>FLAGGEN</h3><p>Länder</p></div>
-    <div class="mc" onclick="sg('auto')"><div class="icon">🚗</div><h3>AUTOS</h3><p>Logos</p></div>
-    <div class="mc" onclick="sg('tier')"><div class="icon">🐘</div><h3>TIERE</h3><p>Welches?</p></div>
-  </div>
-
-  <div class="sec">🌟 HOCHBEGABT — EXTRA-CHALLENGE</div>
-  <div class="mgrid">
-    <div class="mc adv" onclick="sg('logik')"><div class="icon">🧠</div><h3>LOGIK</h3><p>Wenn-Dann</p></div>
-    <div class="mc adv" onclick="sg('mathe100')"><div class="icon">💯</div><h3>MATHE 100</h3><p>Zehner</p></div>
-    <div class="mc adv" onclick="sg('analog')"><div class="icon">🔗</div><h3>ANALOGIEN</h3><p>A verhält zu B</p></div>
-  </div>
+<!-- HEADER -->
+<div id="header">
+  <h1>⭐ LERN-APP</h1>
+  <div id="star-display">⭐ <span id="total-stars">0</span></div>
 </div>
 
-<!-- ANLAUT -->
-<div id="anlaut" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="an-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="an-p" style="width:0%"></div></div>
-  <div class="tc"><h2>MIT WELCHEM LAUT BEGINNT DAS WORT?</h2><div class="sub">Sprich das Wort laut — was hörst du zuerst?</div>
-    <div class="br" style="margin-bottom:.75rem"><div class="bd" id="an-w" style="flex:1">SONNE</div><button class="btn speak" onclick="sp(document.getElementById('an-w').textContent)">🔊</button></div>
-    <div class="opts" id="an-o"></div><div class="fb empty" id="an-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="an-n" onclick="nq('anlaut')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
+<!-- MAIN MENU -->
+<div id="menu">
 
-<!-- REIM -->
-<div id="reim" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="re-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="re-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WAS REIMT SICH AUF ...?</h2><div class="sub">Welches Wort klingt am Ende gleich?</div>
-    <div class="br" style="margin-bottom:.75rem"><div class="bd" id="re-w" style="flex:1">HAUS</div><button class="btn speak" onclick="sp(document.getElementById('re-w').textContent)">🔊</button></div>
-    <div class="opts" id="re-o"></div><div class="fb empty" id="re-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="re-n" onclick="nq('reim')" style="display:none">WEITER →</button></div>
+  <div class="category-title">📚 SPRACHE &amp; LESEN</div>
+  <div class="game-grid">
+    <button class="game-btn" onclick="startGame('anlaute')"><div class="icon">🔤</div><div class="label">ANLAUTE</div></button>
+    <button class="game-btn" onclick="startGame('reimen')"><div class="icon">🎵</div><div class="label">REIMEN</div></button>
+    <button class="game-btn" onclick="startGame('silben')"><div class="icon">✂️</div><div class="label">SILBEN</div></button>
+    <button class="game-btn" onclick="startGame('woerter')"><div class="icon">📝</div><div class="label">WÖRTER</div></button>
+    <button class="game-btn" onclick="startGame('wortbau')"><div class="icon">🧩</div><div class="label">WORTBAU</div></button>
+    <button class="game-btn" onclick="startGame('englisch')"><div class="icon">🇬🇧</div><div class="label">ENGLISCH</div></button>
   </div>
-</div>
 
-<!-- SILBE -->
-<div id="silbe" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="si-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="si-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WIE VIELE SILBEN?</h2><div class="sub">Klatsch mit — eine Klapper pro Silbe!</div>
-    <div class="br" style="margin-bottom:.75rem"><div class="bd" id="si-w" style="flex:1;font-size:28px">KATZE</div><button class="btn speak" onclick="sp(document.getElementById('si-w').textContent)">🔊</button></div>
-    <div class="opts" id="si-o"></div><div class="fb empty" id="si-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="si-n" onclick="nq('silbe')" style="display:none">WEITER →</button></div>
+  <div class="category-title">🔢 MATHE &amp; LOGIK</div>
+  <div class="game-grid">
+    <button class="game-btn" onclick="startGame('zahlen')"><div class="icon">🔢</div><div class="label">ZAHLEN</div></button>
+    <button class="game-btn" onclick="startGame('rechnen')"><div class="icon">➕</div><div class="label">RECHNEN</div></button>
+    <button class="game-btn" onclick="startGame('muster')"><div class="icon">🔷</div><div class="label">MUSTER</div></button>
+    <button class="game-btn" onclick="startGame('formen')"><div class="icon">📐</div><div class="label">FORMEN</div></button>
+    <button class="game-btn" onclick="startGame('geld')"><div class="icon">💰</div><div class="label">GELD</div></button>
+    <button class="game-btn" onclick="startGame('uhrzeit')"><div class="icon">🕐</div><div class="label">UHRZEIT</div></button>
   </div>
-</div>
 
-<!-- WORT -->
-<div id="wort" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="wo-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="wo-p" style="width:0%"></div></div>
-  <div class="tc"><h2>SCHREIBE DAS WORT!</h2><div class="sub">Tippe in Groß- oder Kleinbuchstaben — beides gilt.</div>
-    <div class="br" style="margin-bottom:.75rem"><div class="bd" id="wo-w" style="flex:1;font-size:28px">HUND</div><button class="btn speak" onclick="sp(document.getElementById('wo-w').textContent)">🔊</button></div>
-    <input class="wi" id="wo-i" placeholder="HIER SCHREIBEN..." autocomplete="off" autocorrect="off" spellcheck="false"/>
-    <div class="fb empty" id="wo-f" style="margin-top:7px">-</div>
-    <div class="br" style="margin-top:7px"><div></div><button class="btn p" onclick="ckWort()">PRÜFEN ✓</button></div>
+  <div class="category-title">🌍 WELT &amp; WISSEN</div>
+  <div class="game-grid">
+    <button class="game-btn" onclick="startGame('flaggen')"><div class="icon">🏳️</div><div class="label">FLAGGEN</div></button>
+    <button class="game-btn" onclick="startGame('autos')"><div class="icon">🚗</div><div class="label">AUTOS</div></button>
+    <button class="game-btn" onclick="startGame('tiere')"><div class="icon">🦁</div><div class="label">TIERE</div></button>
   </div>
-</div>
 
-<!-- WORTBAU -->
-<div id="wortbau" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="wb-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="wb-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WELCHES WORT PASST ZUSAMMEN?</h2><div class="sub">Zwei Wörter ergeben ein neues großes Wort!</div>
-    <div class="br" style="margin-bottom:.75rem"><div class="bd" id="wb-w" style="flex:1;font-size:18px">HUND + HAUS = ?</div><button class="btn speak" onclick="sp(document.getElementById('wb-w').textContent)">🔊</button></div>
-    <div class="opts" id="wb-o"></div><div class="fb empty" id="wb-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="wb-n" onclick="nq('wortbau')" style="display:none">WEITER →</button></div>
+  <div class="category-title gifted">🌟 HOCHBEGABT</div>
+  <div class="game-grid">
+    <button class="game-btn gifted" onclick="startGame('logik')"><div class="icon">🧠</div><div class="label">LOGIK</div></button>
+    <button class="game-btn gifted" onclick="startGame('mathe100')"><div class="icon">💯</div><div class="label">MATHE 100</div></button>
+    <button class="game-btn gifted" onclick="startGame('analogien')"><div class="icon">🔗</div><div class="label">ANALOGIEN</div></button>
   </div>
-</div>
 
-<!-- ENGLISCH -->
-<div id="englisch" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="en-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="en-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WAS HEISST DAS AUF ENGLISCH?</h2><div class="sub">Tippe das richtige Wort!</div>
-    <div class="br" style="margin-bottom:.75rem"><div class="bd" id="en-w" style="flex:1;font-size:28px">HUND</div><button class="btn speak" onclick="sp(document.getElementById('en-w').textContent)">🔊</button></div>
-    <div class="opts" id="en-o"></div><div class="fb empty" id="en-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="en-n" onclick="nq('englisch')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- ZAHLEN -->
-<div id="zahl" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="za-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="za-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WIE VIELE PUNKTE SIEHST DU?</h2><div class="sub">Zähle und tippe!</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:.75rem;min-height:42px" id="za-d"></div>
-    <div class="opts" id="za-o"></div><div class="fb empty" id="za-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="za-n" onclick="nq('zahl')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- RECHNEN -->
-<div id="rechnen" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="rc-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="rc-p" style="width:0%"></div></div>
-  <div class="tc"><h2>RECHNE!</h2><div class="sub">Tippe das Ergebnis.</div>
-    <div class="br" style="margin-bottom:.5rem"><div style="font-size:26px;font-weight:700;text-align:center;padding:.65rem;background:#f5f4f0;border-radius:8px;color:#1a1a1a;flex:1;font-family:monospace" id="rc-t">3 + 4 = ?</div><button class="btn speak" onclick="sp(document.getElementById('rc-t').textContent)">🔊</button></div>
-    <div style="font-size:24px;font-weight:700;text-align:center;padding:.55rem;min-height:46px;background:#fff;border:1px solid #ccc;border-radius:8px;margin-bottom:.65rem;color:#1a1a1a;font-family:monospace" id="rc-i">?</div>
-    <div class="ng">
-      <button class="nb" onclick="np(1)">1</button><button class="nb" onclick="np(2)">2</button><button class="nb" onclick="np(3)">3</button>
-      <button class="nb" onclick="np(4)">4</button><button class="nb" onclick="np(5)">5</button><button class="nb" onclick="np(6)">6</button>
-      <button class="nb" onclick="np(7)">7</button><button class="nb" onclick="np(8)">8</button><button class="nb" onclick="np(9)">9</button>
-      <button class="nb" onclick="nd()" style="font-size:14px">⌫</button><button class="nb" onclick="np(0)">0</button>
-      <button class="nb" onclick="ckRech()" style="background:#7F77DD;color:#fff;border-color:#3C3489">✓</button>
-    </div>
-    <div class="fb empty" id="rc-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="rc-n" onclick="nq('rechnen')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- MUSTER -->
-<div id="muster" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="mu-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="mu-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WAS KOMMT ALS NÄCHSTES?</h2><div class="sub">Erkenne das Muster!</div>
-    <div class="prow" id="mu-r"></div>
-    <div class="opts" id="mu-o"></div><div class="fb empty" id="mu-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="mu-n" onclick="nq('muster')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- FORM -->
-<div id="form" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="fo-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="fo-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WELCHE FORM IST DAS?</h2><div class="sub">Tippe den richtigen Namen!</div>
-    <div class="pr" id="fo-sh"></div>
-    <div class="opts" id="fo-o"></div><div class="fb empty" id="fo-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="fo-n" onclick="nq('form')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- GELD -->
-<div id="geld" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="ge-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="ge-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WIE VIEL GELD IST DAS?</h2><div class="sub">Zähle die Münzen zusammen!</div>
-    <div style="text-align:center;font-size:13px;padding:.65rem;background:#f5f4f0;border-radius:8px;margin-bottom:.65rem;color:#1a1a1a;font-weight:700;font-family:monospace;line-height:1.7" id="ge-c">🪙</div>
-    <div class="opts" id="ge-o"></div><div class="fb empty" id="ge-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="ge-n" onclick="nq('geld')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- UHR -->
-<div id="uhr" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="uh-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="uh-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WIE VIEL UHR IST ES?</h2><div class="sub">Schau auf die Uhr!</div>
-    <div class="pr"><svg id="uh-c" width="130" height="130" viewBox="0 0 140 140" style="border-radius:50%;background:#f5f4f0"></svg></div>
-    <div class="opts" id="uh-o"></div><div class="fb empty" id="uh-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="uh-n" onclick="nq('uhr')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- FLAGGE -->
-<div id="flagge" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="fl-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="fl-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WELCHES LAND?</h2><div class="sub">Tippe das richtige Land!</div>
-    <div style="font-size:64px;text-align:center;padding:.65rem;background:#f5f4f0;border-radius:8px;margin-bottom:.65rem;line-height:1" id="fl-f">🇩🇪</div>
-    <div class="opts" id="fl-o"></div><div class="fb empty" id="fl-f2">-</div>
-    <div class="br"><div></div><button class="btn p" id="fl-n" onclick="nq('flagge')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- AUTO -->
-<div id="auto" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="au-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="au-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WELCHE AUTOMARKE?</h2><div class="sub">Erkenne das Logo!</div>
-    <div style="text-align:center;padding:.75rem;background:#f5f4f0;border-radius:8px;margin-bottom:.65rem">
-      <div style="font-size:11px;color:#666;margin-bottom:3px">LOGO:</div>
-      <div style="font-size:28px;font-weight:700;color:#1a1a1a;letter-spacing:3px;font-family:monospace" id="au-h">VW</div>
-      <div style="font-size:10px;color:#666;margin-top:3px;font-family:monospace" id="au-c">AUS DEUTSCHLAND</div>
-    </div>
-    <div class="opts" id="au-o"></div><div class="fb empty" id="au-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="au-n" onclick="nq('auto')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- TIER -->
-<div id="tier" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span>⭐ <span id="ti-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="ti-p" style="width:0%"></div></div>
-  <div class="tc"><h2>WELCHES TIER IST DAS?</h2><div class="sub">Tippe den richtigen Namen!</div>
-    <div class="bd" id="ti-a" style="font-size:56px">🐘</div>
-    <div class="opts" id="ti-o"></div><div class="fb empty" id="ti-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="ti-n" onclick="nq('tier')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- LOGIK -->
-<div id="logik" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span style="color:#7F77DD;font-weight:700;font-family:monospace">🌟 HOCHBEGABT · ⭐ <span id="lo-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="lo-p" style="width:0%;background:#7F77DD"></div></div>
-  <div class="tc"><h2>LOGIK-RÄTSEL</h2><div class="sub">Denk nach — was ist richtig?</div>
-    <div class="br" style="margin-bottom:.65rem"><div class="logic-box" id="lo-q">...</div><button class="btn speak" onclick="sp(document.getElementById('lo-q').textContent)">🔊</button></div>
-    <div class="opts" id="lo-o"></div><div class="fb empty" id="lo-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="lo-n" onclick="nq('logik')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- MATHE100 -->
-<div id="mathe100" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span style="color:#7F77DD;font-weight:700;font-family:monospace">🌟 HOCHBEGABT · ⭐ <span id="m1-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="m1-p" style="width:0%;background:#7F77DD"></div></div>
-  <div class="tc"><h2>MATHE BIS 100</h2><div class="sub">Zehnerüberschreitung — rechne genau!</div>
-    <div class="br" style="margin-bottom:.5rem"><div style="font-size:24px;font-weight:700;text-align:center;padding:.65rem;background:#f5f4f0;border-radius:8px;color:#1a1a1a;flex:1;font-family:monospace" id="m1-t">13 + 9 = ?</div><button class="btn speak" onclick="sp(document.getElementById('m1-t').textContent)">🔊</button></div>
-    <div style="font-size:24px;font-weight:700;text-align:center;padding:.55rem;min-height:44px;background:#fff;border:1px solid #ccc;border-radius:8px;margin-bottom:.65rem;color:#1a1a1a;font-family:monospace" id="m1-i">?</div>
-    <div class="ng">
-      <button class="nb" onclick="np2(1)">1</button><button class="nb" onclick="np2(2)">2</button><button class="nb" onclick="np2(3)">3</button>
-      <button class="nb" onclick="np2(4)">4</button><button class="nb" onclick="np2(5)">5</button><button class="nb" onclick="np2(6)">6</button>
-      <button class="nb" onclick="np2(7)">7</button><button class="nb" onclick="np2(8)">8</button><button class="nb" onclick="np2(9)">9</button>
-      <button class="nb" onclick="nd2()" style="font-size:14px">⌫</button><button class="nb" onclick="np2(0)">0</button>
-      <button class="nb" onclick="ckM1()" style="background:#7F77DD;color:#fff;border-color:#3C3489">✓</button>
-    </div>
-    <div class="fb empty" id="m1-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="m1-n" onclick="nq('mathe100')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- ANALOG -->
-<div id="analog" class="screen">
-  <div class="topbar"><button class="btn" onclick="sh()">← ZURÜCK</button><span style="color:#7F77DD;font-weight:700;font-family:monospace">🌟 HOCHBEGABT · ⭐ <span id="ag-s">0</span></span></div>
-  <div class="pb"><div class="pf" id="ag-p" style="width:0%;background:#7F77DD"></div></div>
-  <div class="tc"><h2>ANALOGIEN</h2><div class="sub">Was gehört zusammen? Denk in Paaren!</div>
-    <div class="br" style="margin-bottom:.65rem"><div class="bd" id="ag-q" style="flex:1;font-size:16px;letter-spacing:1px;white-space:pre-line">HUND → BELLEN</div><button class="btn speak" onclick="sp(document.getElementById('ag-q').textContent)">🔊</button></div>
-    <div class="opts" id="ag-o"></div><div class="fb empty" id="ag-f">-</div>
-    <div class="br"><div></div><button class="btn p" id="ag-n" onclick="nq('analog')" style="display:none">WEITER →</button></div>
-  </div>
-</div>
-
-<!-- RESULT -->
-<div id="result" class="screen">
-  <div class="res">
-    <div class="tr" id="res-t">🏆</div>
-    <h2 id="res-h">SUPER GEMACHT!</h2>
-    <p id="res-m">5 VON 6 RICHTIG!</p>
-    <div class="bg" id="res-b"></div>
-    <div class="br" style="justify-content:center;gap:10px">
-      <button class="btn" onclick="sh()">🏠 MENÜ</button>
-      <button class="btn p" onclick="rp()">NOCHMAL 🔄</button>
+  <div id="badges">
+    <h3>MEINE ABZEICHEN</h3>
+    <div class="badge-row">
+      <div class="badge" id="badge-1" title="5 Sterne">🥉</div>
+      <div class="badge" id="badge-2" title="15 Sterne">🥈</div>
+      <div class="badge" id="badge-3" title="30 Sterne">🥇</div>
+      <div class="badge" id="badge-4" title="60 Sterne">🏆</div>
+      <div class="badge" id="badge-4g" title="Hochbegabt-Quiz geschafft">🌟</div>
     </div>
   </div>
 </div>
+
+<!-- GAME SCREEN -->
+<div id="game-screen">
+  <button id="back-btn" onclick="goMenu()">← ZURÜCK</button>
+  <div id="progress-bar-wrap"><div id="progress-bar" style="width:0%"></div></div>
+  <div id="question-card">
+    <div id="q-label">
+      <span id="q-counter">FRAGE 1 / 6</span>
+      <button id="tts-btn" onclick="speakQuestion()">🔊 VORLESEN</button>
+    </div>
+    <div id="q-emoji"></div>
+    <div id="q-text"></div>
+    <div class="answer-grid" id="answer-grid"></div>
+  </div>
+  <div id="feedback"></div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div id="result-screen">
+  <div class="big-emoji" id="result-emoji">🎉</div>
+  <h2 id="result-title">SUPER!</h2>
+  <p id="result-text"></p>
+  <div class="result-btns">
+    <button id="btn-again" onclick="restartGame()">NOCHMAL ▶</button>
+    <button id="btn-menu" onclick="goMenu()">MENÜ 🏠</button>
+  </div>
 </div>
 
 <script>
-var TS=0,CG='',GI=0,GS=0,GT=6,ANS=false,CA=0,CI='',CA2=0,CI2='';
-function sp(t){if(!t||!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t.toLowerCase());u.lang='de-DE';u.rate=0.85;speechSynthesis.speak(u);}
-var D={
-  anlaut:[{w:'SONNE',l:'S',o:['S','M','B','T']},{w:'MAUS',l:'M',o:['M','N','B','W']},{w:'BAUM',l:'B',o:['B','P','D','W']},{w:'KATZE',l:'K',o:['K','G','C','T']},{w:'TISCH',l:'T',o:['T','D','F','S']},{w:'HUND',l:'H',o:['H','K','F','W']},{w:'FISCH',l:'F',o:['F','V','S','P']},{w:'APFEL',l:'A',o:['A','E','O','U']},{w:'ENTE',l:'E',o:['E','A','I','U']},{w:'LÖWE',l:'L',o:['L','R','N','M']},{w:'NASE',l:'N',o:['N','M','L','R']},{w:'ROSE',l:'R',o:['R','L','N','W']}],
-  reim:[{w:'HAUS',r:'MAUS',o:['MAUS','HUND','BAUM','TISCH']},{w:'BALL',r:'HALL',o:['HALL','TISCH','BAUM','MAUS']},{w:'HUND',r:'BUND',o:['BUND','KATZE','ROSE','BALL']},{w:'SONNE',r:'WONNE',o:['WONNE','HAUS','TISCH','FISCH']},{w:'FISCH',r:'TISCH',o:['TISCH','BAUM','HAUS','NASE']},{w:'RING',r:'KING',o:['KING','BALL','HAUS','KATZE']},{w:'STERN',r:'KERN',o:['KERN','BALL','HUND','TISCH']},{w:'NACHT',r:'ACHT',o:['ACHT','HUND','ROSE','BAUM']},{w:'TAG',r:'MAG',o:['MAG','FISCH','SONNE','RING']},{w:'KATZ',r:'SCHATZ',o:['SCHATZ','HUND','BAUM','TISCH']}],
-  silbe:[{w:'KATZE',n:2},{w:'HUND',n:1},{w:'SCHULE',n:2},{w:'SCHMETTERLINGE',n:5},{w:'MAMA',n:2},{w:'APFEL',n:2},{w:'ELEFANT',n:3},{w:'BUCH',n:1},{w:'COMPUTER',n:3},{w:'AUTO',n:2},{w:'KROKODIL',n:3},{w:'BLUME',n:2}],
-  wort:['HUND','KATZE','SCHULE','BUCH','MAMA','PAPA','BALL','TISCH','HAUS','BAUM','AUTO','KIND','ROSE','FISCH','RING'],
-  wortbau:[{q:'HUND + HAUS',a:'HUNDEHAUS',o:['HUNDEHAUS','HAUSMANN','TIERGARTEN','BALLHAUS']},{q:'FEUER + WEHR',a:'FEUERWEHR',o:['FEUERWEHR','WASSERTURM','WINDRAD','FEUEROFEN']},{q:'SCHULE + TASCHE',a:'SCHULTASCHE',o:['SCHULTASCHE','SCHULBUCH','KINDERTASCHE','HANDTASCHE']},{q:'BLUMEN + TOPF',a:'BLUMENTOPF',o:['BLUMENTOPF','PFLANZKASTEN','GARTENERDE','WASSEREIMER']},{q:'HAND + SCHUH',a:'HANDSCHUH',o:['HANDSCHUH','FUSSBALL','ARMBAND','FINGERRING']},{q:'FUSS + BALL',a:'FUSSBALL',o:['FUSSBALL','HANDBALL','KORB','SPIELZEUG']},{q:'SCHNEE + MANN',a:'SCHNEEMANN',o:['SCHNEEMANN','EISFRAU','FROSTKING','WINTERKIND']},{q:'REGEN + BOGEN',a:'REGENBOGEN',o:['REGENBOGEN','WOLKENSCHIFF','SONNENSCHEIN','WINDROSE']},{q:'HAUS + TÜR',a:'HAUSTÜR',o:['HAUSTÜR','GARTENTOR','FENSTERLADEN','ZIMMERDECKE']},{q:'LESE + BUCH',a:'LESEBUCH',o:['LESEBUCH','SCHREIBHEFT','BILDBAND','TEXTBUCH']}],
-  englisch:[{d:'HUND',e:'dog',o:['dog','cat','bird','fish']},{d:'KATZE',e:'cat',o:['dog','cat','horse','cow']},{d:'APFEL',e:'apple',o:['apple','banana','orange','grape']},{d:'HAUS',e:'house',o:['house','car','tree','book']},{d:'WASSER',e:'water',o:['water','milk','juice','fire']},{d:'BAUM',e:'tree',o:['tree','flower','grass','bush']},{d:'AUTO',e:'car',o:['car','bus','train','plane']},{d:'BUCH',e:'book',o:['book','pen','paper','bag']},{d:'SONNE',e:'sun',o:['sun','moon','star','cloud']},{d:'BLUME',e:'flower',o:['flower','tree','grass','leaf']},{d:'SCHULE',e:'school',o:['school','home','park','shop']},{d:'FISCH',e:'fish',o:['fish','bird','frog','bear']}],
-  zahl:[1,2,3,4,5,6,7,8,9,10,11,12],
-  muster:[{s:['🔴','🔵','🔴','🔵','🔴'],a:'🔵',o:['🔵','🔴','🟢','🟡']},{s:['🟢','🟢','🔴','🟢','🟢'],a:'🔴',o:['🔴','🟢','🔵','🟡']},{s:['⭐','🌙','⭐','🌙','⭐'],a:'🌙',o:['🌙','⭐','☀️','🌟']},{s:['1','2','3','4','5'],a:'6',o:['6','7','5','4']},{s:['2','4','6','8'],a:'10',o:['10','9','11','12']},{s:['🔷','🔶','🔷','🔶','🔷'],a:'🔶',o:['🔶','🔷','🔸','🔹']},{s:['5','10','15','20'],a:'25',o:['25','22','30','20']},{s:['🦁','🐯','🦁','🐯','🦁'],a:'🐯',o:['🐯','🦁','🐸','🐻']},{s:['🌸','🌸','🌼','🌸','🌸'],a:'🌼',o:['🌼','🌸','🌺','🌻']},{s:['3','6','9','12'],a:'15',o:['15','13','14','16']}],
-  form:[{n:'KREIS',svg:'<circle cx="60" cy="60" r="45" fill="#B5D4F4" stroke="#185FA5" stroke-width="2"/>',o:['KREIS','QUADRAT','DREIECK','RECHTECK']},{n:'QUADRAT',svg:'<rect x="15" y="15" width="90" height="90" fill="#C0DD97" stroke="#3B6D11" stroke-width="2"/>',o:['QUADRAT','KREIS','RECHTECK','DREIECK']},{n:'DREIECK',svg:'<polygon points="60,10 110,110 10,110" fill="#F5C4B3" stroke="#993C1D" stroke-width="2"/>',o:['DREIECK','KREIS','QUADRAT','OVAL']},{n:'RECHTECK',svg:'<rect x="5" y="30" width="110" height="60" fill="#CECBF6" stroke="#534AB7" stroke-width="2"/>',o:['RECHTECK','QUADRAT','KREIS','DREIECK']},{n:'OVAL',svg:'<ellipse cx="60" cy="60" rx="52" ry="32" fill="#9FE1CB" stroke="#0F6E56" stroke-width="2"/>',o:['OVAL','KREIS','RECHTECK','DREIECK']},{n:'RAUTE',svg:'<polygon points="60,10 110,60 60,110 10,60" fill="#FAC775" stroke="#854F0B" stroke-width="2"/>',o:['RAUTE','QUADRAT','DREIECK','OVAL']}],
-  geld:[{c:'1 × 10 CENT\n+ 1 × 5 CENT',v:15,o:[15,10,20,5],u:'CENT'},{c:'2 × 50 CENT',v:100,o:[100,50,150,200],u:'CENT'},{c:'1 × 1 EURO\n+ 1 × 50 CENT',v:150,o:[100,150,200,50],u:'CENT'},{c:'3 × 1 CENT\n+ 2 × 2 CENT',v:7,o:[5,6,7,8],u:'CENT'},{c:'1 × 2 EURO\n+ 1 × 1 EURO',v:3,o:[2,3,4,5],u:'EURO'},{c:'2 × 20 CENT\n+ 1 × 10 CENT',v:50,o:[40,50,60,30],u:'CENT'},{c:'4 × 5 CENT',v:20,o:[15,20,25,10],u:'CENT'},{c:'1 × 5 EURO\n+ 2 × 1 EURO',v:7,o:[6,7,8,9],u:'EURO'}],
-  uhr:[{h:3,m:0,t:'3:00 UHR'},{h:6,m:0,t:'6:00 UHR'},{h:9,m:0,t:'9:00 UHR'},{h:12,m:0,t:'12:00 UHR'},{h:1,m:30,t:'1:30 UHR'},{h:4,m:30,t:'4:30 UHR'},{h:7,m:0,t:'7:00 UHR'},{h:10,m:30,t:'10:30 UHR'},{h:2,m:0,t:'2:00 UHR'},{h:8,m:0,t:'8:00 UHR'}],
-  flagge:[{f:'🇩🇪',n:'DEUTSCHLAND',o:['DEUTSCHLAND','ÖSTERREICH','SCHWEIZ','FRANKREICH']},{f:'🇦🇹',n:'ÖSTERREICH',o:['DEUTSCHLAND','ÖSTERREICH','BELGIEN','POLEN']},{f:'🇫🇷',n:'FRANKREICH',o:['FRANKREICH','SPANIEN','ITALIEN','PORTUGAL']},{f:'🇮🇹',n:'ITALIEN',o:['ITALIEN','GRIECHENLAND','SPANIEN','KROATIEN']},{f:'🇪🇸',n:'SPANIEN',o:['PORTUGAL','FRANKREICH','SPANIEN','MEXIKO']},{f:'🇬🇧',n:'ENGLAND',o:['ENGLAND','IRLAND','SCHOTTLAND','AUSTRALIEN']},{f:'🇺🇸',n:'AMERIKA',o:['KANADA','AMERIKA','AUSTRALIEN','IRLAND']},{f:'🇨🇭',n:'SCHWEIZ',o:['ÖSTERREICH','DEUTSCHLAND','SCHWEIZ','LIECHTENSTEIN']},{f:'🇯🇵',n:'JAPAN',o:['JAPAN','CHINA','KOREA','VIETNAM']},{f:'🇧🇷',n:'BRASILIEN',o:['BRASILIEN','ARGENTINIEN','MEXIKO','PERU']}],
-  auto:[{h:'VW',c:'AUS DEUTSCHLAND',n:'VOLKSWAGEN',o:['VOLKSWAGEN','BMW','AUDI','MERCEDES']},{h:'BMW',c:'AUS MÜNCHEN',n:'BMW',o:['BMW','OPEL','VOLKSWAGEN','AUDI']},{h:'AUDI',c:'VIER RINGE',n:'AUDI',o:['AUDI','BMW','SEAT','SKODA']},{h:'MB ⭐',c:'STERN — STUTTGART',n:'MERCEDES',o:['MERCEDES','AUDI','PORSCHE','BMW']},{h:'FORD',c:'AUS AMERIKA',n:'FORD',o:['FORD','CHEVROLET','DODGE','TESLA']},{h:'FIAT',c:'AUS ITALIEN',n:'FIAT',o:['FIAT','FERRARI','ALFA ROMEO','LANCIA']},{h:'OPEL',c:'BLITZ — RÜSSELSHEIM',n:'OPEL',o:['OPEL','SEAT','RENAULT','CITROËN']},{h:'TESLA',c:'ELEKTRO — AMERIKA',n:'TESLA',o:['TESLA','FORD','RIVIAN','DODGE']},{h:'🔴🐎',c:'ROTES PFERD — ITALIEN',n:'FERRARI',o:['FERRARI','LAMBORGHINI','MASERATI','ALFA ROMEO']},{h:'VOLVO',c:'AUS SCHWEDEN',n:'VOLVO',o:['VOLVO','SAAB','SKODA','RENAULT']}],
-  tier:[{i:'🐘',n:'ELEFANT',o:['ELEFANT','NILPFERD','NASHORN','GIRAFFE']},{i:'🦁',n:'LÖWE',o:['TIGER','LEOPARD','LÖWE','GEPARD']},{i:'🐧',n:'PINGUIN',o:['PINGUIN','PAPAGEI','MÖWE','ADLER']},{i:'🦒',n:'GIRAFFE',o:['GIRAFFE','KAMEL','ELEFANT','ZEBRA']},{i:'🐊',n:'KROKODIL',o:['KROKODIL','EIDECHSE','SCHILDKRÖTE','SCHLANGE']},{i:'🦓',n:'ZEBRA',o:['PFERD','ZEBRA','ESEL','NILPFERD']},{i:'🐨',n:'KOALA',o:['KOALA','BÄR','PANDA','WASCHBÄR']},{i:'🦅',n:'ADLER',o:['ADLER','EULE','PAPAGEI','FALKE']},{i:'🐬',n:'DELFIN',o:['DELFIN','HAI','WAL','ROBBE']},{i:'🦔',n:'IGEL',o:['IGEL','MAULWURF','HAMSTER','EICHHÖRNCHEN']}],
-  logik:[{q:'ALLE KATZEN HABEN FELL.\nMITZI IST EINE KATZE.\nHAT MITZI FELL?',a:'JA',o:['JA','NEIN','VIELLEICHT','WEISS NICHT']},{q:'MAX IST GRÖSSER ALS LISA.\nLISA IST GRÖSSER ALS TOM.\nWER IST AM KLEINSTEN?',a:'TOM',o:['TOM','LISA','MAX','ALLE GLEICH']},{q:'EIN DREIECK HAT 3 ECKEN.\nEIN QUADRAT HAT 4 ECKEN.\nWELCHE FORM HAT MEHR ECKEN?',a:'QUADRAT',o:['QUADRAT','DREIECK','BEIDE GLEICH','KEINES']},{q:'ANNA HAT 5 ÄPFEL.\nSIE GIBT 2 AN PAUL.\nWIE VIELE HAT ANNA NOCH?',a:'3',o:['3','2','4','5']},{q:'HEUTE IST MONTAG.\nIN 3 TAGEN — WELCHER TAG IST ES?',a:'DONNERSTAG',o:['DONNERSTAG','MITTWOCH','FREITAG','DIENSTAG']},{q:'EIN DUTZEND = 12.\nICH HABE 2 DUTZEND EIER.\nWIE VIELE EIER SIND DAS?',a:'24',o:['24','12','22','20']},{q:'ALLE VÖGEL HABEN FEDERN.\nEIN ADLER IST EIN VOGEL.\nHAT EIN ADLER FEDERN?',a:'JA',o:['JA','NEIN','NUR MANCHMAL','WEISS NICHT']},{q:'LUKAS SCHLÄFT IMMER UM 8 UHR.\nHEUTE IST ES 9 UHR.\nSCHLÄFT LUKAS SCHON?',a:'JA',o:['JA','NEIN','VIELLEICHT','UNMÖGLICH']}],
-  mathe100:[{a:8,op:'+',b:7},{a:15,op:'+',b:6},{a:23,op:'+',b:9},{a:47,op:'+',b:8},{a:36,op:'+',b:15},{a:20,op:'-',b:7},{a:31,op:'-',b:8},{a:45,op:'-',b:16},{a:52,op:'-',b:9},{a:25,op:'+',b:25},{a:63,op:'-',b:24},{a:10,op:'+',b:10}],
-  analog:[{q:'HUND → BELLEN\nKATZE → ?',a:'MIAUEN',o:['MIAUEN','BELLEN','ZISCHEN','QUAKEN']},{q:'WASSER → TRINKEN\nBROT → ?',a:'ESSEN',o:['ESSEN','TRINKEN','RIECHEN','SPIELEN']},{q:'TAG → HELL\nNACHT → ?',a:'DUNKEL',o:['DUNKEL','KALT','WARM','LAUT']},{q:'VOGEL → NEST\nFISCH → ?',a:'WASSER',o:['WASSER','NEST','BAUM','HÖHLE']},{q:'AUTO → FAHREN\nFLUGZEUG → ?',a:'FLIEGEN',o:['FLIEGEN','FAHREN','SCHWIMMEN','RENNEN']},{q:'GROSS → KLEIN\nSCHNELL → ?',a:'LANGSAM',o:['LANGSAM','SCHNELL','LEISE','WEICH']},{q:'MUTTER → KIND\nLEHRER → ?',a:'SCHÜLER',o:['SCHÜLER','DIREKTOR','ELTERN','FREUND']},{q:'BUCH → LESEN\nMUSIK → ?',a:'HÖREN',o:['HÖREN','LESEN','SEHEN','SCHMECKEN']},{q:'EIS → KALT\nFEUER → ?',a:'HEISS',o:['HEISS','KALT','NASS','WEICH']},{q:'HERBST → BLÄTTER FALLEN\nFRÜHLING → ?',a:'BLÜTEN BLÜHEN',o:['BLÜTEN BLÜHEN','SCHNEE FÄLLT','ALLES BRAUN','ES REGNET']}],
+/* ══════════════════════════════════════════════
+   GAME DATA
+══════════════════════════════════════════════ */
+const GAMES = {
+
+  anlaute: {
+    title: 'ANLAUTE',
+    questions: [
+      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🦁', answer: 'L', choices: ['L','T','B','M'] },
+      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🐘', answer: 'E', choices: ['E','A','O','U'] },
+      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🍎', answer: 'A', choices: ['A','O','E','I'] },
+      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🐧', answer: 'P', choices: ['P','B','D','F'] },
+      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🚀', answer: 'R', choices: ['R','S','T','N'] },
+      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🌺', answer: 'B', choices: ['B','D','P','G'] },
+    ]
+  },
+
+  reimen: {
+    title: 'REIMEN',
+    questions: [
+      { q: 'WAS REIMT SICH AUF "HAUS"?', emoji: '🏠', answer: 'MAUS', choices: ['MAUS','HUND','BAUM','MOND'] },
+      { q: 'WAS REIMT SICH AUF "KATZE"?', emoji: '🐱', answer: 'MATZE', choices: ['MATZE','HUND','VOGEL','BALL'] },
+      { q: 'WAS REIMT SICH AUF "BALL"?', emoji: '⚽', answer: 'HALL', choices: ['HALL','BAUM','TISCH','GLAS'] },
+      { q: 'WAS REIMT SICH AUF "BUCH"?', emoji: '📚', answer: 'TUCH', choices: ['TUCH','BETT','GRAS','MOND'] },
+      { q: 'WAS REIMT SICH AUF "BOOT"?', emoji: '⛵', answer: 'ROT', choices: ['ROT','BLAU','GRUN','GELB'] },
+      { q: 'WAS REIMT SICH AUF "BAUM"?', emoji: '🌳', answer: 'RAUM', choices: ['RAUM','HAUS','BUCH','TISCH'] },
+    ]
+  },
+
+  silben: {
+    title: 'SILBEN',
+    questions: [
+      { q: 'WIE VIELE SILBEN HAT "HUND"?', emoji: '🐶', answer: '1', choices: ['1','2','3','4'] },
+      { q: 'WIE VIELE SILBEN HAT "KA-TZE"?', emoji: '🐱', answer: '2', choices: ['2','1','3','4'] },
+      { q: 'WIE VIELE SILBEN HAT "ELE-FANT"?', emoji: '🐘', answer: '3', choices: ['3','2','1','4'] },
+      { q: 'WIE VIELE SILBEN HAT "SCHU-LE"?', emoji: '🏫', answer: '2', choices: ['2','1','3','4'] },
+      { q: 'WIE VIELE SILBEN HAT "AU-TO"?', emoji: '🚗', answer: '2', choices: ['2','1','3','4'] },
+      { q: 'WIE VIELE SILBEN HAT "SCH-MET-TER-LING"?', emoji: '🦋', answer: '4', choices: ['4','3','2','1'] },
+    ]
+  },
+
+  woerter: {
+    title: 'WÖRTER',
+    questions: [
+      { q: 'WAS SIEHST DU?', emoji: '🍎', answer: 'APFEL', choices: ['APFEL','BIRNE','PFLAUME','KIRSCHE'] },
+      { q: 'WAS SIEHST DU?', emoji: '🐸', answer: 'FROSCH', choices: ['FROSCH','VOGEL','FISCH','SPINNE'] },
+      { q: 'WAS SIEHST DU?', emoji: '🌙', answer: 'MOND', choices: ['MOND','SONNE','STERN','WOLKE'] },
+      { q: 'WAS SIEHST DU?', emoji: '🎈', answer: 'BALLON', choices: ['BALLON','KUGEL','KREIS','RING'] },
+      { q: 'WAS SIEHST DU?', emoji: '🦋', answer: 'SCHMETTERLING', choices: ['SCHMETTERLING','HUMMEL','WESPE','LIBELLE'] },
+      { q: 'WAS SIEHST DU?', emoji: '🌈', answer: 'REGENBOGEN', choices: ['REGENBOGEN','REGEN','BOGEN','SONNE'] },
+    ]
+  },
+
+  wortbau: {
+    title: 'WORTBAU',
+    questions: [
+      { q: 'HUND + HAUS = ?', emoji: '🐶🏠', answer: 'HUNDEHAUS', choices: ['HUNDEHAUS','HAUSEHUND','HAUSHUND','HUNDHAUS'] },
+      { q: 'SONNEN + BLUME = ?', emoji: '☀️🌸', answer: 'SONNENBLUME', choices: ['SONNENBLUME','BLUMENSONNE','SONNBLUME','BLUMESONNE'] },
+      { q: 'APFEL + SAFT = ?', emoji: '🍎🥤', answer: 'APFELSAFT', choices: ['APFELSAFT','SAFTAPFEL','APFELSAFE','SAFTFRUCHT'] },
+      { q: 'SCHULE + TASCHE = ?', emoji: '🏫👜', answer: 'SCHULTASCHE', choices: ['SCHULTASCHE','TASCHENSCHULE','SCHULTISCH','TASCHENBAND'] },
+      { q: 'FEUER + WEHR = ?', emoji: '🔥🚒', answer: 'FEUERWEHR', choices: ['FEUERWEHR','WEHRFEUER','FEUERWERK','BRANDWEHR'] },
+      { q: 'WASSER + FLASCHE = ?', emoji: '💧🍶', answer: 'WASSERFLASCHE', choices: ['WASSERFLASCHE','FLASCHENWASSER','WASSERFLACH','FLASCHWASSER'] },
+    ]
+  },
+
+  englisch: {
+    title: 'ENGLISCH',
+    questions: [
+      { q: 'WAS BEDEUTET "APPLE"?', emoji: '🍎', answer: 'APFEL', choices: ['APFEL','BIRNE','BANANE','KIRSCHE'] },
+      { q: 'WAS BEDEUTET "DOG"?', emoji: '🐶', answer: 'HUND', choices: ['HUND','KATZE','VOGEL','PFERD'] },
+      { q: 'WAS BEDEUTET "HOUSE"?', emoji: '🏠', answer: 'HAUS', choices: ['HAUS','BAUM','AUTO','SCHULE'] },
+      { q: 'WAS BEDEUTET "SUN"?', emoji: '☀️', answer: 'SONNE', choices: ['SONNE','MOND','STERN','REGEN'] },
+      { q: 'WAS BEDEUTET "FISH"?', emoji: '🐟', answer: 'FISCH', choices: ['FISCH','VOGEL','SCHLANGE','KÄFER'] },
+      { q: 'WAS BEDEUTET "FLOWER"?', emoji: '🌸', answer: 'BLUME', choices: ['BLUME','BAUM','GRAS','BUSCH'] },
+    ]
+  },
+
+  zahlen: {
+    title: 'ZAHLEN',
+    questions: [
+      { q: 'WIE VIELE ÄPFEL SIEHST DU?', emoji: '🍎🍎🍎', answer: '3', choices: ['3','2','4','5'] },
+      { q: 'WIE VIELE STERNE SIEHST DU?', emoji: '⭐⭐⭐⭐⭐', answer: '5', choices: ['5','4','6','3'] },
+      { q: 'WAS KOMMT NACH 7?', emoji: '7️⃣', answer: '8', choices: ['8','6','9','10'] },
+      { q: 'WAS IST MEHR?', emoji: '', answer: '15', choices: ['15','12','9','11'] },
+      { q: 'WAS KOMMT VOR 10?', emoji: '🔟', answer: '9', choices: ['9','8','11','7'] },
+      { q: 'WIE VIELE FINGER HAT EINE HAND?', emoji: '✋', answer: '5', choices: ['5','4','6','10'] },
+    ]
+  },
+
+  rechnen: {
+    title: 'RECHNEN',
+    questions: [
+      { q: '3 + 4 = ?', emoji: '➕', answer: '7', choices: ['7','6','8','5'] },
+      { q: '9 - 3 = ?', emoji: '➖', answer: '6', choices: ['6','5','7','8'] },
+      { q: '5 + 5 = ?', emoji: '➕', answer: '10', choices: ['10','9','11','8'] },
+      { q: '8 - 5 = ?', emoji: '➖', answer: '3', choices: ['3','2','4','5'] },
+      { q: '6 + 4 = ?', emoji: '➕', answer: '10', choices: ['10','9','11','12'] },
+      { q: '10 - 3 = ?', emoji: '➖', answer: '7', choices: ['7','6','8','9'] },
+    ]
+  },
+
+  muster: {
+    title: 'MUSTER',
+    questions: [
+      { q: 'WAS KOMMT ALS NÄCHSTES?\n🔴 🔵 🔴 🔵 🔴 ?', emoji: '', answer: '🔵', choices: ['🔵','🔴','🟡','🟢'] },
+      { q: 'WAS KOMMT ALS NÄCHSTES?\n⭐ ⭐ 🌙 ⭐ ⭐ ?', emoji: '', answer: '🌙', choices: ['🌙','⭐','☀️','🌟'] },
+      { q: 'WAS KOMMT ALS NÄCHSTES?\n🐱 🐶 🐱 🐶 🐱 ?', emoji: '', answer: '🐶', choices: ['🐶','🐱','🐸','🐼'] },
+      { q: 'WAS KOMMT ALS NÄCHSTES?\n2 4 6 8 ?', emoji: '🔢', answer: '10', choices: ['10','9','11','12'] },
+      { q: 'WAS KOMMT ALS NÄCHSTES?\n1 3 5 7 ?', emoji: '🔢', answer: '9', choices: ['9','8','10','11'] },
+      { q: 'WAS KOMMT ALS NÄCHSTES?\n🍎 🍌 🍊 🍎 🍌 ?', emoji: '', answer: '🍊', choices: ['🍊','🍎','🍌','🍇'] },
+    ]
+  },
+
+  formen: {
+    title: 'FORMEN',
+    questions: [
+      { q: 'WAS FÜR EINE FORM IST DAS?', emoji: '⬛', answer: 'QUADRAT', choices: ['QUADRAT','KREIS','DREIECK','RECHTECK'] },
+      { q: 'WAS FÜR EINE FORM IST DAS?', emoji: '⭕', answer: 'KREIS', choices: ['KREIS','QUADRAT','OVAL','RING'] },
+      { q: 'WAS FÜR EINE FORM IST DAS?', emoji: '🔺', answer: 'DREIECK', choices: ['DREIECK','QUADRAT','KREIS','STERN'] },
+      { q: 'WELCHE FORM HAT EIN BALL?', emoji: '⚽', answer: 'KUGEL', choices: ['KUGEL','WÜRFEL','KREIS','ZYLINDER'] },
+      { q: 'WIE VIELE ECKEN HAT EIN QUADRAT?', emoji: '⬛', answer: '4', choices: ['4','3','5','6'] },
+      { q: 'WIE VIELE ECKEN HAT EIN DREIECK?', emoji: '🔺', answer: '3', choices: ['3','4','5','2'] },
+    ]
+  },
+
+  geld: {
+    title: 'GELD',
+    questions: [
+      { q: 'WIE VIEL IST EINE 1-EURO-MÜNZE WERT?', emoji: '🪙', answer: '100 CENT', choices: ['100 CENT','50 CENT','10 CENT','200 CENT'] },
+      { q: 'DU HAST 2 EURO. DAS EIS KOSTET 1 EURO. WAS BLEIBT?', emoji: '🍦', answer: '1 EURO', choices: ['1 EURO','2 EURO','50 CENT','0'] },
+      { q: 'WAS IST MEHR WERT?', emoji: '💶', answer: '2 EURO', choices: ['2 EURO','50 CENT','20 CENT','1 EURO'] },
+      { q: '3 ÄPFEL ZU JE 1 EURO. WAS KOSTET ALLES?', emoji: '🍎🍎🍎', answer: '3 EURO', choices: ['3 EURO','2 EURO','4 EURO','1 EURO'] },
+      { q: 'WAS IST KLEINER ALS 1 EURO?', emoji: '🪙', answer: '50 CENT', choices: ['50 CENT','1 EURO','2 EURO','5 EURO'] },
+      { q: 'DU HAST 5 EURO. DU KAUFST EIN BUCH FÜR 3 EURO. WAS BLEIBT?', emoji: '📚', answer: '2 EURO', choices: ['2 EURO','3 EURO','4 EURO','1 EURO'] },
+    ]
+  },
+
+  uhrzeit: {
+    title: 'UHRZEIT',
+    questions: [
+      { q: 'WIE VIELE STUNDEN HAT EIN TAG?', emoji: '🕐', answer: '24', choices: ['24','12','60','48'] },
+      { q: 'WIE VIELE MINUTEN HAT EINE STUNDE?', emoji: '⏱️', answer: '60', choices: ['60','30','24','100'] },
+      { q: 'WAS IST "HALB DREI"?', emoji: '🕝', answer: '2:30 UHR', choices: ['2:30 UHR','3:00 UHR','3:30 UHR','2:00 UHR'] },
+      { q: 'DU SCHLÄFST UM 8 UHR. 1 STUNDE LATER IST ES?', emoji: '😴', answer: '9 UHR', choices: ['9 UHR','8 UHR','10 UHR','7 UHR'] },
+      { q: 'WAS KOMMT ZUERST?', emoji: '🌅', answer: 'MORGEN', choices: ['MORGEN','MITTAG','ABEND','NACHT'] },
+      { q: 'SCHULE BEGINNT UM 8. DU BIST 30 MIN ZU SPÄT. WANN KOMMST DU?', emoji: '🏫', answer: '8:30 UHR', choices: ['8:30 UHR','8:00 UHR','9:00 UHR','7:30 UHR'] },
+    ]
+  },
+
+  flaggen: {
+    title: 'FLAGGEN',
+    questions: [
+      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇩🇪', answer: 'DEUTSCHLAND', choices: ['DEUTSCHLAND','ÖSTERREICH','SCHWEIZ','BELGIEN'] },
+      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇦🇹', answer: 'ÖSTERREICH', choices: ['ÖSTERREICH','DEUTSCHLAND','UNGARN','SCHWEIZ'] },
+      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇫🇷', answer: 'FRANKREICH', choices: ['FRANKREICH','ITALIEN','SPANIEN','BELGIEN'] },
+      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇮🇹', answer: 'ITALIEN', choices: ['ITALIEN','SPANIEN','PORTUGAL','FRANKREICH'] },
+      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇬🇧', answer: 'ENGLAND', choices: ['ENGLAND','IRLAND','SCHOTTLAND','WALES'] },
+      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇺🇸', answer: 'USA', choices: ['USA','KANADA','AUSTRALIEN','MEXIKO'] },
+    ]
+  },
+
+  autos: {
+    title: 'AUTOS',
+    questions: [
+      { q: 'WO WIRD VW GEBAUT?', emoji: '🚗', answer: 'DEUTSCHLAND', choices: ['DEUTSCHLAND','ÖSTERREICH','FRANKREICH','ITALIEN'] },
+      { q: 'WIE HEISST DAS LOGO VON BMW?', emoji: '🔵⚪', answer: 'BLAU-WEISS KREIS', choices: ['BLAU-WEISS KREIS','STERN','RINGE','PFEIL'] },
+      { q: 'WAS BEDEUTET VW?', emoji: '🚙', answer: 'VOLKSWAGEN', choices: ['VOLKSWAGEN','VOLVO WERK','VOLL WAGEN','VOLKS WERK'] },
+      { q: 'WELCHE FARBE HAT EIN FERRARI MEISTENS?', emoji: '🏎️', answer: 'ROT', choices: ['ROT','BLAU','GRÜN','GELB'] },
+      { q: 'WO KOMMT FERRARI HER?', emoji: '🏎️', answer: 'ITALIEN', choices: ['ITALIEN','SPANIEN','FRANKREICH','DEUTSCHLAND'] },
+      { q: 'WIE VIELE REIFEN HAT EIN NORMAL-AUTO?', emoji: '🚗', answer: '4', choices: ['4','3','5','6'] },
+    ]
+  },
+
+  tiere: {
+    title: 'TIERE',
+    questions: [
+      { q: 'WAS MACHT DIE KUH?', emoji: '🐮', answer: 'MUH', choices: ['MUH','MIAU','WUFF','QUAK'] },
+      { q: 'WO LEBT EIN PINGUIN?', emoji: '🐧', answer: 'AM SÜDPOL', choices: ['AM SÜDPOL','IM DSCHUNGEL','IN DER WÜSTE','AM NORDPOL'] },
+      { q: 'WAS FRISST EIN HASE?', emoji: '🐰', answer: 'MÖHREN', choices: ['MÖHREN','FISCH','FLEISCH','KÄSE'] },
+      { q: 'WIE HEISST DAS JUNGE VON EINEM HUND?', emoji: '🐶', answer: 'WELPE', choices: ['WELPE','KÄTZCHEN','FOHLEN','FERKEL'] },
+      { q: 'WAS IST DAS GRÖSSTE TIER DER WELT?', emoji: '🌊', answer: 'BLAUWAL', choices: ['BLAUWAL','ELEFANT','GIRAFFE','NASHORN'] },
+      { q: 'WO LEBT EIN KROKODIL?', emoji: '🐊', answer: 'AM FLUSS', choices: ['AM FLUSS','AM NORDPOL','IN DER WÜSTE','AUF DEM BERG'] },
+    ]
+  },
+
+  // ── HOCHBEGABT ────────────────────────────────
+  logik: {
+    title: 'LOGIK',
+    gifted: true,
+    questions: [
+      { q: 'ALLE KATZEN HABEN FELL.\nMITZI IST EINE KATZE.\nHAT MITZI FELL?', emoji: '🐱', answer: 'JA, SIE HAT FELL', choices: ['JA, SIE HAT FELL','NEIN, KEIN FELL','VIELLEICHT','ICH WEISS ES NICHT'] },
+      { q: 'ALLE VÖGEL KÖNNEN FLIEGEN.\nEIN PINGUIN IST EIN VOGEL.\nKANN DER PINGUIN FLIEGEN?', emoji: '🐧', answer: 'LAUT REGEL: JA', choices: ['LAUT REGEL: JA','NEIN','NUR IM SOMMER','MANCHMAL'] },
+      { q: 'WENN ES REGNET, WIRD DIE STRASSE NASS.\nES REGNET.\nWAS PASSIERT?', emoji: '🌧️', answer: 'STRASSE WIRD NASS', choices: ['STRASSE WIRD NASS','SONNE SCHEINT','NICHTS PASSIERT','SCHNEE FÄLLT'] },
+      { q: 'MAX IST GRÖSSER ALS ANNA. ANNA IST GRÖSSER ALS TOM. WER IST AM KLEINSTEN?', emoji: '👦👧👶', answer: 'TOM', choices: ['TOM','ANNA','MAX','ALLE GLEICH'] },
+      { q: 'EIN VIERECK HAT 4 SEITEN. EIN DREIECK HAT 3 SEITEN. WIE VIELE SEITEN HAT EIN FÜNFECK?', emoji: '⬠', answer: '5', choices: ['5','4','6','3'] },
+      { q: 'WENN 2 + 2 = 4, WAS IST DANN 4 + 4?', emoji: '🔢', answer: '8', choices: ['8','6','10','16'] },
+    ]
+  },
+
+  mathe100: {
+    title: 'MATHE 100',
+    gifted: true,
+    questions: [
+      { q: '47 + 13 = ?', emoji: '➕', answer: '60', choices: ['60','50','70','58'] },
+      { q: '83 - 24 = ?', emoji: '➖', answer: '59', choices: ['59','69','49','60'] },
+      { q: '25 + 36 = ?', emoji: '➕', answer: '61', choices: ['61','51','71','60'] },
+      { q: '100 - 37 = ?', emoji: '➖', answer: '63', choices: ['63','67','73','53'] },
+      { q: '5 × 4 = ?', emoji: '✖️', answer: '20', choices: ['20','15','25','24'] },
+      { q: '3 × 8 = ?', emoji: '✖️', answer: '24', choices: ['24','21','27','28'] },
+    ]
+  },
+
+  analogien: {
+    title: 'ANALOGIEN',
+    gifted: true,
+    questions: [
+      { q: 'HUND BELLT.\nKATZE ... ?', emoji: '🐱', answer: 'MIAUT', choices: ['MIAUT','BELLT','QUAKT','ZISCHT'] },
+      { q: 'VOGEL FLIEGT.\nFISCH ... ?', emoji: '🐟', answer: 'SCHWIMMT', choices: ['SCHWIMMT','FLIEGT','LÄUFT','KRIECHT'] },
+      { q: 'TAG IST HELL.\nNACHT IST ... ?', emoji: '🌙', answer: 'DUNKEL', choices: ['DUNKEL','HELL','WARM','KALT'] },
+      { q: 'FEUER IST HEISS.\nEIS IST ... ?', emoji: '🧊', answer: 'KALT', choices: ['KALT','HEISS','WARM','NASS'] },
+      { q: 'BUCH : LESEN = MUSIK : ... ?', emoji: '🎵', answer: 'HÖREN', choices: ['HÖREN','SEHEN','SCHMECKEN','RIECHEN'] },
+      { q: 'KLEIN IST DAS GEGENTEIL VON GROSS.\nSCHNELL IST DAS GEGENTEIL VON ... ?', emoji: '🐢', answer: 'LANGSAM', choices: ['LANGSAM','SCHNELL','GROSS','LAUT'] },
+    ]
+  }
 };
-var sd={};
-function shfl(a){var b=[...a];for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
-function showScr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function sh(){showScr('home');document.getElementById('ts').textContent=TS+' ⭐';}
-function rp(){sg(CG);}
-function sg(g){CG=g;GI=0;GS=0;ANS=false;CI='';CI2='';if(!['rechnen','mathe100'].includes(g))sd[g]=shfl(D[g]||[]);showScr(g);lq(g);}
-var pm={anlaut:{pr:'an-p',n:'an-n',fb:'an-f',ob:'an-o',sc:'an-s'},reim:{pr:'re-p',n:'re-n',fb:'re-f',ob:'re-o',sc:'re-s'},silbe:{pr:'si-p',n:'si-n',fb:'si-f',ob:'si-o',sc:'si-s'},wort:{pr:'wo-p',n:'wo-n',fb:'wo-f',sc:'wo-s'},wortbau:{pr:'wb-p',n:'wb-n',fb:'wb-f',ob:'wb-o',sc:'wb-s'},englisch:{pr:'en-p',n:'en-n',fb:'en-f',ob:'en-o',sc:'en-s'},zahl:{pr:'za-p',n:'za-n',fb:'za-f',ob:'za-o',sc:'za-s'},rechnen:{pr:'rc-p',n:'rc-n',fb:'rc-f',sc:'rc-s'},muster:{pr:'mu-p',n:'mu-n',fb:'mu-f',ob:'mu-o',sc:'mu-s'},form:{pr:'fo-p',n:'fo-n',fb:'fo-f',ob:'fo-o',sc:'fo-s'},geld:{pr:'ge-p',n:'ge-n',fb:'ge-f',ob:'ge-o',sc:'ge-s'},uhr:{pr:'uh-p',n:'uh-n',fb:'uh-f',ob:'uh-o',sc:'uh-s'},flagge:{pr:'fl-p',n:'fl-n',fb:'fl-f2',ob:'fl-o',sc:'fl-s'},auto:{pr:'au-p',n:'au-n',fb:'au-f',ob:'au-o',sc:'au-s'},tier:{pr:'ti-p',n:'ti-n',fb:'ti-f',ob:'ti-o',sc:'ti-s'},logik:{pr:'lo-p',n:'lo-n',fb:'lo-f',ob:'lo-o',sc:'lo-s'},mathe100:{pr:'m1-p',n:'m1-n',fb:'m1-f',sc:'m1-s'},analog:{pr:'ag-p',n:'ag-n',fb:'ag-f',ob:'ag-o',sc:'ag-s'}};
-function lq(g){if(GI>=GT){showRes();return;}ANS=false;var m=pm[g];if(!m)return;var pr=document.getElementById(m.pr);if(pr)pr.style.width=Math.round(GI/GT*100)+'%';var fb=document.getElementById(m.fb);if(fb){fb.className='fb empty';fb.textContent='-';}var nx=document.getElementById(m.n);if(nx)nx.style.display='none';var ld={anlaut:lAnlaut,reim:lReim,silbe:lSilbe,wort:lWort,wortbau:lWortbau,englisch:lEnglisch,zahl:lZahl,rechnen:lRechnen,muster:lMuster,form:lForm,geld:lGeld,uhr:lUhr,flagge:lFlagge,auto:lAuto,tier:lTier,logik:lLogik,mathe100:lMathe100,analog:lAnalog};if(ld[g])ld[g]();}
-function nq(g){GI++;lq(g);}
-function mkOpts(cid,opts,correct,fid,nid,sid,fmt){var el=document.getElementById(cid);if(!el)return;el.innerHTML='';shfl(opts).forEach(o=>{var btn=document.createElement('button');btn.className='ob';btn.textContent=fmt?fmt(o):o;btn.onclick=()=>{if(!ANS)ckOpt(o,correct,btn,fid,nid,sid,fmt,cid)};el.appendChild(btn);});}
-function ckOpt(sel,correct,btn,fid,nid,sid,fmt,cid){ANS=true;var fb=document.getElementById(fid);if(String(sel)===String(correct)){btn.className='ob correct';fb.className='fb good';fb.textContent='RICHTIG! ⭐';GS++;TS++;var sc=document.getElementById(sid);if(sc)sc.textContent=GS;document.getElementById('ts').textContent=TS+' ⭐';}else{btn.className='ob wrong';fb.className='fb bad';fb.textContent='FAST! RICHTIG: '+(fmt?fmt(correct):correct)+' 💪';document.querySelectorAll('#'+cid+' .ob').forEach(b=>{if(b.textContent===(fmt?fmt(correct):String(correct)))b.className='ob correct';});}var nx=document.getElementById(nid);if(nx)nx.style.display='inline-block';}
-function lAnlaut(){var i=sd.anlaut[GI%sd.anlaut.length];document.getElementById('an-w').textContent=i.w;mkOpts('an-o',i.o,i.l,'an-f','an-n','an-s');}
-function lReim(){var i=sd.reim[GI%sd.reim.length];document.getElementById('re-w').textContent=i.w;mkOpts('re-o',i.o,i.r,'re-f','re-n','re-s');}
-function lSilbe(){var i=sd.silbe[GI%sd.silbe.length];document.getElementById('si-w').textContent=i.w;var o=new Set([i.n]);while(o.size<4)o.add(Math.floor(Math.random()*5)+1);mkOpts('si-o',[...o],i.n,'si-f','si-n','si-s',n=>n+(n===1?' SILBE':' SILBEN'));}
-function lWort(){var w=sd.wort[GI%sd.wort.length];document.getElementById('wo-w').textContent=w;document.getElementById('wo-i').value='';}
-function ckWort(){if(ANS)return;var w=document.getElementById('wo-w').textContent;var v=document.getElementById('wo-i').value.trim().toUpperCase();var fb=document.getElementById('wo-f');if(v===w){ANS=true;fb.className='fb good';fb.textContent='PERFEKT! ⭐';GS++;TS++;document.getElementById('wo-s').textContent=GS;document.getElementById('ts').textContent=TS+' ⭐';setTimeout(()=>{GI++;lq('wort');},1200);}else{fb.className='fb bad';fb.textContent='NICHT GANZ — NOCHMAL! 💪';}}
-function lWortbau(){var i=sd.wortbau[GI%sd.wortbau.length];document.getElementById('wb-w').textContent=i.q+' = ?';mkOpts('wb-o',i.o,i.a,'wb-f','wb-n','wb-s');}
-function lEnglisch(){var i=sd.englisch[GI%sd.englisch.length];document.getElementById('en-w').textContent=i.d;mkOpts('en-o',i.o,i.e,'en-f','en-n','en-s');}
-function lZahl(){var n=sd.zahl[GI%sd.zahl.length];var d=document.getElementById('za-d');d.innerHTML='';for(var i=0;i<n;i++){var dot=document.createElement('div');dot.style.cssText='width:15px;height:15px;border-radius:50%;background:#1D9E75';d.appendChild(dot);}var o=new Set([n]);while(o.size<4)o.add(Math.floor(Math.random()*12)+1);mkOpts('za-o',[...o],n,'za-f','za-n','za-s');}
-function lRechnen(){var ops=['+','+','+','-','-'];var op=ops[Math.floor(Math.random()*ops.length)];var a,b;if(op==='+'){a=Math.floor(Math.random()*8)+1;b=Math.floor(Math.random()*(12-a))+1;}else{a=Math.floor(Math.random()*10)+3;b=Math.floor(Math.random()*(a-1))+1;}CA=(op==='+')?a+b:a-b;CI='';document.getElementById('rc-t').textContent=a+' '+op+' '+b+' = ?';document.getElementById('rc-i').textContent='?';}
-function np(n){if(ANS)return;CI=CI===''?String(n):CI+n;if(CI.length>2)CI=CI.slice(-2);document.getElementById('rc-i').textContent=CI;}
-function nd(){CI=CI.slice(0,-1)||'';document.getElementById('rc-i').textContent=CI||'?';}
-function ckRech(){if(ANS||CI==='')return;var v=parseInt(CI);var fb=document.getElementById('rc-f');if(v===CA){ANS=true;fb.className='fb good';fb.textContent='RICHTIG! '+CA+' ⭐';GS++;TS++;document.getElementById('rc-s').textContent=GS;document.getElementById('ts').textContent=TS+' ⭐';document.getElementById('rc-n').style.display='inline-block';}else{fb.className='fb bad';fb.textContent='FAST! NOCHMAL 💪';CI='';document.getElementById('rc-i').textContent='?';}}
-function lMuster(){var i=sd.muster[GI%sd.muster.length];var r=document.getElementById('mu-r');r.innerHTML='';i.s.forEach(s=>{var d=document.createElement('div');d.className='pi';d.textContent=s;r.appendChild(d);});var q=document.createElement('div');q.className='pi q';q.textContent='?';r.appendChild(q);mkOpts('mu-o',i.o,i.a,'mu-f','mu-n','mu-s');}
-function lForm(){var i=sd.form[GI%sd.form.length];document.getElementById('fo-sh').innerHTML='<svg viewBox="0 0 120 120" width="120" height="120">'+i.svg+'</svg>';mkOpts('fo-o',i.o,i.n,'fo-f','fo-n','fo-s');}
-function lGeld(){var i=sd.geld[GI%sd.geld.length];document.getElementById('ge-c').textContent=i.c;mkOpts('ge-o',i.o.map(o=>o+' '+i.u),i.v+' '+i.u,'ge-f','ge-n','ge-s');}
-function lUhr(){var i=sd.uhr[GI%sd.uhr.length];drawClk(i.h,i.m);var all=D.uhr.map(t=>t.t);var o=new Set([i.t]);shfl(all).forEach(t=>{if(o.size<4)o.add(t);});mkOpts('uh-o',[...o],i.t,'uh-f','uh-n','uh-s');}
-function drawClk(h,m){var svg=document.getElementById('uh-c');svg.innerHTML='';var ns='http://www.w3.org/2000/svg';var bg=document.createElementNS(ns,'circle');bg.setAttribute('cx',70);bg.setAttribute('cy',70);bg.setAttribute('r',65);bg.setAttribute('fill','#f5f4f0');bg.setAttribute('stroke','#888');bg.setAttribute('stroke-width','2');svg.appendChild(bg);for(var i=1;i<=12;i++){var ang=(i*30-90)*Math.PI/180;var t=document.createElementNS(ns,'text');t.setAttribute('x',70+50*Math.cos(ang));t.setAttribute('y',70+50*Math.sin(ang)+4);t.setAttribute('text-anchor','middle');t.setAttribute('font-size','11');t.setAttribute('fill','#444');t.textContent=i;svg.appendChild(t);}var mA=((m/60)*360-90)*Math.PI/180;var mL=document.createElementNS(ns,'line');mL.setAttribute('x1',70);mL.setAttribute('y1',70);mL.setAttribute('x2',70+48*Math.cos(mA));mL.setAttribute('y2',70+48*Math.sin(mA));mL.setAttribute('stroke','#1D9E75');mL.setAttribute('stroke-width','2.5');mL.setAttribute('stroke-linecap','round');svg.appendChild(mL);var hV=(h%12)+m/60;var hA=(hV*30-90)*Math.PI/180;var hL=document.createElementNS(ns,'line');hL.setAttribute('x1',70);hL.setAttribute('y1',70);hL.setAttribute('x2',70+32*Math.cos(hA));hL.setAttribute('y2',70+32*Math.sin(hA));hL.setAttribute('stroke','#1a1a1a');hL.setAttribute('stroke-width','3.5');hL.setAttribute('stroke-linecap','round');svg.appendChild(hL);var ctr=document.createElementNS(ns,'circle');ctr.setAttribute('cx',70);ctr.setAttribute('cy',70);ctr.setAttribute('r',4);ctr.setAttribute('fill','#7F77DD');svg.appendChild(ctr);}
-function lFlagge(){var i=sd.flagge[GI%sd.flagge.length];document.getElementById('fl-f').textContent=i.f;mkOpts('fl-o',i.o,i.n,'fl-f2','fl-n','fl-s');}
-function lAuto(){var i=sd.auto[GI%sd.auto.length];document.getElementById('au-h').textContent=i.h;document.getElementById('au-c').textContent=i.c;mkOpts('au-o',i.o,i.n,'au-f','au-n','au-s');}
-function lTier(){var i=sd.tier[GI%sd.tier.length];document.getElementById('ti-a').textContent=i.i;mkOpts('ti-o',i.o,i.n,'ti-f','ti-n','ti-s');}
-function lLogik(){var i=sd.logik[GI%sd.logik.length];document.getElementById('lo-q').textContent=i.q;mkOpts('lo-o',i.o,i.a,'lo-f','lo-n','lo-s');}
-function lMathe100(){var items=D.mathe100;var i=items[GI%items.length];CA2=i.op==='+'?i.a+i.b:i.a-i.b;CI2='';document.getElementById('m1-t').textContent=i.a+' '+i.op+' '+i.b+' = ?';document.getElementById('m1-i').textContent='?';}
-function np2(n){if(ANS)return;CI2=CI2===''?String(n):CI2+n;if(CI2.length>3)CI2=CI2.slice(-3);document.getElementById('m1-i').textContent=CI2;}
-function nd2(){CI2=CI2.slice(0,-1)||'';document.getElementById('m1-i').textContent=CI2||'?';}
-function ckM1(){if(ANS||CI2==='')return;var v=parseInt(CI2);var fb=document.getElementById('m1-f');if(v===CA2){ANS=true;fb.className='fb good';fb.textContent='BRILLANT! '+CA2+' ⭐';GS++;TS++;document.getElementById('m1-s').textContent=GS;document.getElementById('ts').textContent=TS+' ⭐';document.getElementById('m1-n').style.display='inline-block';}else{fb.className='fb bad';fb.textContent='FAST! NOCHMAL — DU SCHAFFST DAS! 💪';CI2='';document.getElementById('m1-i').textContent='?';}}
-function lAnalog(){var i=sd.analog[GI%sd.analog.length];document.getElementById('ag-q').textContent=i.q;mkOpts('ag-o',i.o,i.a,'ag-f','ag-n','ag-s');}
-function showRes(){showScr('result');document.getElementById('ts').textContent=TS+' ⭐';var pct=Math.round(GS/GT*100);var adv=['logik','mathe100','analog'].includes(CG);document.getElementById('res-t').textContent=pct===100?'🏆':pct>=60?'🌟':'💪';document.getElementById('res-h').textContent=pct===100?(adv?'GENIE! ABSOLUT PERFEKT!':'PERFEKT! SUPERSTAR!'):pct>=60?'SUPER GEMACHT!':'WEITER ÜBEN!';document.getElementById('res-m').textContent='DU HAST '+GS+' VON '+GT+' RICHTIG!';var bg=document.getElementById('res-b');bg.innerHTML='';var add=(t,a)=>{var b=document.createElement('span');b.className='badge'+(a?' adv':'');b.textContent=t;bg.appendChild(b);};if(GS===GT)add(adv?'🌟 GENIE-LEVEL!':'100% PERFEKT!',adv);if(TS>=5)add('5 STERNE ⭐',false);if(TS>=15)add('15 STERNE 🌟',false);if(TS>=30)add('SUPERSTAR 🏆',false);if(adv&&GS>=4)add('HOCHBEGABT-CHALLENGE BESTANDEN',true);}
-document.getElementById('wo-i').addEventListener('keydown',e=>{if(e.key==='Enter')ckWort();});
+
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+let totalStars = 0;
+let giftedCompleted = 0;
+let currentGame = null;
+let currentQ = 0;
+let currentQuestions = [];
+let sessionStars = 0;
+let answered = false;
+
+/* ══════════════════════════════════════════════
+   TTS
+══════════════════════════════════════════════ */
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/\n/g,' '));
+  u.lang = 'de-DE';
+  u.rate = 0.85;
+  u.pitch = 1.1;
+  speechSynthesis.speak(u);
+}
+
+function speakQuestion() {
+  const q = currentQuestions[currentQ];
+  speak(q.q + (q.emoji ? ' ' : ''));
+}
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
+function goMenu() {
+  speechSynthesis.cancel && speechSynthesis.cancel();
+  document.getElementById('menu').style.display = '';
+  document.getElementById('game-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'none';
+  updateBadges();
+}
+
+function startGame(id) {
+  currentGame = id;
+  const g = GAMES[id];
+  // shuffle + pick 6
+  currentQuestions = [...g.questions].sort(() => Math.random() - 0.5).slice(0, 6);
+  currentQ = 0;
+  sessionStars = 0;
+  answered = false;
+
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'none';
+
+  const gs = document.getElementById('game-screen');
+  gs.style.display = '';
+  gs.className = g.gifted ? 'gifted-game' : '';
+
+  renderQuestion();
+}
+
+function restartGame() {
+  startGame(currentGame);
+}
+
+/* ══════════════════════════════════════════════
+   QUESTION RENDERING
+══════════════════════════════════════════════ */
+function renderQuestion() {
+  answered = false;
+  const q = currentQuestions[currentQ];
+  const total = currentQuestions.length;
+
+  document.getElementById('q-counter').textContent = `FRAGE ${currentQ + 1} / ${total}`;
+  document.getElementById('progress-bar').style.width = `${(currentQ / total) * 100}%`;
+  document.getElementById('q-emoji').textContent = q.emoji || '';
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = '';
+
+  const grid = document.getElementById('answer-grid');
+  grid.innerHTML = '';
+  const shuffled = [...q.choices].sort(() => Math.random() - 0.5);
+  shuffled.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'ans-btn';
+    btn.textContent = c;
+    btn.onclick = () => checkAnswer(btn, c, q.answer);
+    grid.appendChild(btn);
+  });
+}
+
+function checkAnswer(btn, chosen, correct) {
+  if (answered) return;
+  answered = true;
+
+  const allBtns = document.querySelectorAll('.ans-btn');
+  allBtns.forEach(b => {
+    b.classList.add('disabled');
+    if (b.textContent === correct) b.classList.add('correct');
+  });
+
+  const fb = document.getElementById('feedback');
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    fb.textContent = '✅ SUPER! RICHTIG!';
+    fb.className = 'ok';
+    speak('Super! Richtig!');
+    sessionStars++;
+    totalStars++;
+    document.getElementById('total-stars').textContent = totalStars;
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = `❌ FAST! RICHTIG WAR: ${correct}`;
+    fb.className = 'err';
+    speak('Fast! Die richtige Antwort war: ' + correct);
+  }
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < currentQuestions.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 1600);
+}
+
+/* ══════════════════════════════════════════════
+   RESULT
+══════════════════════════════════════════════ */
+function showResult() {
+  const total = currentQuestions.length;
+  const pct = sessionStars / total;
+
+  if (GAMES[currentGame].gifted) giftedCompleted++;
+
+  document.getElementById('game-screen').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.style.display = '';
+
+  let emoji, title, msg;
+  if (pct === 1)       { emoji='🏆'; title='PERFEKT!'; msg=`ALLE ${total} FRAGEN RICHTIG! UNGLAUBLICH!`; }
+  else if (pct >= 0.67){ emoji='🎉'; title='SUPER!'; msg=`${sessionStars} VON ${total} RICHTIG! TOLL GEMACHT!`; }
+  else if (pct >= 0.33){ emoji='👍'; title='GUT!'; msg=`${sessionStars} VON ${total} RICHTIG! WEITER ÜBEN!`; }
+  else                 { emoji='💪'; title='WEITER!'; msg=`${sessionStars} VON ${total} RICHTIG! DU SCHAFFST DAS!`; }
+
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-text').textContent = msg;
+
+  speak(title + '! ' + msg);
+  updateBadges();
+}
+
+/* ══════════════════════════════════════════════
+   BADGES
+══════════════════════════════════════════════ */
+function updateBadges() {
+  const b1 = document.getElementById('badge-1');
+  const b2 = document.getElementById('badge-2');
+  const b3 = document.getElementById('badge-3');
+  const b4 = document.getElementById('badge-4');
+  const b4g = document.getElementById('badge-4g');
+  if (totalStars >= 5)  b1.classList.add('earned');
+  if (totalStars >= 15) b2.classList.add('earned');
+  if (totalStars >= 30) b3.classList.add('earned');
+  if (totalStars >= 60) b4.classList.add('earned');
+  if (giftedCompleted >= 1) b4g.classList.add('earned');
+}
 </script>
 </body>
 </html>
