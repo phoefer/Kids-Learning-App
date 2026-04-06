@@ -5,262 +5,137 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>LERN-APP</title>
 <style>
-  :root {
-    --bg: #f0f4ff;
-    --card: #ffffff;
-    --primary: #4361ee;
-    --primary-light: #e8edff;
-    --green: #2dc653;
-    --green-light: #d4f5de;
-    --red: #e63946;
-    --red-light: #fde8ea;
-    --yellow: #ffd60a;
-    --yellow-light: #fff8d6;
-    --orange: #ff6b35;
-    --purple: #7b2d8b;
-    --purple-light: #f3e8f7;
-    --star: #ffd60a;
-    --text: #1a1a2e;
-    --text-soft: #5a5a7a;
-    --radius: 20px;
-    --shadow: 0 4px 20px rgba(67,97,238,0.12);
-  }
+:root{--bg:#f0f4ff;--card:#fff;--primary:#4361ee;--plight:#e8edff;--green:#2dc653;--glight:#d4f5de;--red:#e63946;--rlight:#fde8ea;--yellow:#ffd60a;--ylight:#fff8d6;--purple:#7b2d8b;--plightbg:#f3e8f7;--text:#1a1a2e;--soft:#5a5a7a;--r:20px;--sh:0 4px 20px rgba(67,97,238,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);min-height:100vh;color:var(--text);font-size:18px}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* HEADER */
+#header{background:var(--primary);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(67,97,238,.3)}
+#header h1{font-size:1.2rem;font-weight:900;letter-spacing:2px}
+#header-right{display:flex;align-items:center;gap:10px}
+#user-pill{background:rgba(255,255,255,.2);border-radius:30px;padding:4px 12px;font-size:.75rem;font-weight:700;cursor:pointer;letter-spacing:1px}
+#star-display{background:var(--yellow);color:#1a1a2e;border-radius:30px;padding:5px 12px;font-weight:900;font-size:.9rem;display:flex;align-items:center;gap:5px}
 
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    min-height: 100vh;
-    color: var(--text);
-    font-size: 18px;
-  }
+/* LOGIN SCREEN */
+#login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:24px;text-align:center}
+#login-screen h2{font-size:1.6rem;font-weight:900;letter-spacing:2px;margin-bottom:8px;font-family:'Courier New',monospace}
+#login-screen p{color:var(--soft);margin-bottom:28px;font-size:.95rem}
+.user-list{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-bottom:20px}
+.user-btn{background:var(--card);border:3px solid var(--plight);border-radius:var(--r);padding:14px 20px;font-size:1rem;font-weight:900;font-family:'Courier New',monospace;cursor:pointer;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);transition:border-color .15s,transform .1s;letter-spacing:1px}
+.user-btn:hover{border-color:var(--primary);transform:translateY(-2px)}
+.user-btn:active{transform:scale(.97)}
+.user-btn .ustars{background:var(--yellow);border-radius:20px;padding:2px 10px;font-size:.8rem}
+.new-user-area{display:flex;gap:8px;width:100%;max-width:340px}
+#new-name{flex:1;padding:12px 16px;border:3px solid var(--plight);border-radius:var(--r);font-size:1rem;font-weight:700;font-family:'Courier New',monospace;letter-spacing:1px;color:var(--text);background:var(--card)}
+#new-name:focus{outline:none;border-color:var(--primary)}
+#add-user-btn{background:var(--primary);color:#fff;border:none;border-radius:var(--r);padding:12px 18px;font-size:1rem;font-weight:900;cursor:pointer}
 
-  /* ── HEADER ─────────────────────────────────── */
-  #header {
-    background: var(--primary);
-    color: #fff;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 12px rgba(67,97,238,0.3);
-  }
-  #header h1 { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
-  #star-display {
-    background: var(--yellow);
-    color: #1a1a2e;
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-weight: 900;
-    font-size: 1rem;
-    display: flex; align-items: center; gap: 6px;
-  }
+/* MENU */
+#menu{padding:16px 16px 40px;max-width:700px;margin:0 auto;display:none}
+.category-title{font-size:.72rem;font-weight:900;letter-spacing:3px;color:var(--soft);margin:24px 0 10px;text-transform:uppercase}
+.category-title.gifted{color:var(--purple)}
+.category-title.special{color:#b5501b}
+.game-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:500px){.game-grid{grid-template-columns:repeat(3,1fr)}}
+.game-btn{background:var(--card);border:3px solid transparent;border-radius:var(--r);padding:16px 8px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.game-btn:active{transform:scale(.96)}
+.game-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(67,97,238,.18);border-color:var(--primary)}
+.game-btn .icon{font-size:2rem}
+.game-btn .label{font-size:.68rem;font-weight:900;letter-spacing:1.5px;text-align:center;color:var(--text)}
+.game-btn.gifted{border-color:var(--plightbg)}
+.game-btn.gifted:hover{border-color:var(--purple)}
+.game-btn.gifted .label{color:var(--purple)}
+.game-btn.special-btn{border-color:#fde8d8;background:linear-gradient(135deg,#fff8f5,#fff)}
+.game-btn.special-btn:hover{border-color:#e07030}
+.game-btn.special-btn .label{color:#b5501b}
 
-  /* ── MAIN MENU ──────────────────────────────── */
-  #menu {
-    padding: 20px 16px 40px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  .category-title {
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: var(--text-soft);
-    margin: 28px 0 12px;
-    text-transform: uppercase;
-  }
-  .category-title.gifted { color: var(--purple); }
+/* BADGES */
+#badges{margin-top:24px;background:var(--ylight);border-radius:var(--r);padding:14px;text-align:center}
+#badges h3{font-size:.72rem;letter-spacing:2px;font-weight:900;color:var(--soft);margin-bottom:8px}
+.badge-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.badge{width:50px;height:50px;border-radius:50%;border:3px solid #ddd;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.4rem;filter:grayscale(1);transition:filter .3s,border-color .3s}
+.badge.earned{filter:none;border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,214,10,.3)}
 
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  @media(min-width:500px) { .game-grid { grid-template-columns: repeat(3, 1fr); } }
+/* RANGLISTE */
+#ranking-box{margin-top:16px;background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--sh)}
+#ranking-box h3{font-size:.72rem;letter-spacing:2px;font-weight:900;color:var(--soft);margin-bottom:10px;text-align:center}
+.rank-row{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:12px;margin-bottom:5px;font-family:'Courier New',monospace;font-weight:700;font-size:.85rem}
+.rank-row.me{background:var(--plight);border:2px solid var(--primary)}
+.rank-medal{font-size:1.2rem;width:28px;text-align:center}
+.rank-name{flex:1;letter-spacing:1px}
+.rank-stars{background:var(--yellow);border-radius:20px;padding:2px 10px;font-size:.78rem}
 
-  .game-btn {
-    background: var(--card);
-    border: 3px solid transparent;
-    border-radius: var(--radius);
-    padding: 18px 10px 14px;
-    cursor: pointer;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 8px;
-    box-shadow: var(--shadow);
-    transition: transform .15s, box-shadow .15s, border-color .15s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .game-btn:active { transform: scale(0.96); }
-  .game-btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(67,97,238,0.18); border-color: var(--primary); }
-  .game-btn .icon  { font-size: 2.2rem; }
-  .game-btn .label { font-size: 0.72rem; font-weight: 900; letter-spacing: 1.5px; text-align: center; color: var(--text); }
-  .game-btn.gifted { border-color: var(--purple-light); }
-  .game-btn.gifted:hover { border-color: var(--purple); }
-  .game-btn.gifted .label { color: var(--purple); }
+/* GAME SCREEN */
+#game-screen{display:none;padding:16px;max-width:700px;margin:0 auto}
+#back-btn{background:none;border:none;font-size:.95rem;font-weight:900;letter-spacing:1px;color:var(--primary);cursor:pointer;display:flex;align-items:center;gap:6px;padding:4px 0 14px;-webkit-tap-highlight-color:transparent}
+#progress-bar-wrap{height:10px;border-radius:10px;background:#dde3ff;margin-bottom:16px;overflow:hidden}
+#progress-bar{height:100%;border-radius:10px;background:var(--primary);transition:width .4s ease}
+#question-card{background:var(--card);border-radius:var(--r);padding:20px 18px 18px;box-shadow:var(--sh);margin-bottom:14px}
+#q-label{font-size:.62rem;letter-spacing:3px;font-weight:900;color:var(--soft);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+#tts-btn{background:var(--plight);border:none;border-radius:30px;padding:5px 12px;cursor:pointer;font-size:.72rem;font-weight:900;color:var(--primary);letter-spacing:1px;display:flex;align-items:center;gap:5px}
+#q-text{font-size:1.3rem;font-weight:900;letter-spacing:1px;line-height:1.35;margin-bottom:4px;font-family:'Courier New',monospace;white-space:pre-line}
+#q-emoji{font-size:2.6rem;margin:8px 0;display:block;text-align:center}
+#clock-display{display:none;justify-content:center;margin:10px 0}
 
-  /* ── BADGES ─────────────────────────────────── */
-  #badges {
-    margin-top: 32px;
-    background: var(--yellow-light);
-    border-radius: var(--radius);
-    padding: 16px;
-    text-align: center;
-  }
-  #badges h3 { font-size: 0.75rem; letter-spacing: 2px; font-weight: 900; color: var(--text-soft); margin-bottom: 10px; }
-  .badge-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-  .badge {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    border: 3px solid #ddd;
-    background: #eee;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.6rem;
-    filter: grayscale(1);
-    transition: filter .3s, border-color .3s;
-  }
-  .badge.earned { filter: none; border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(255,214,10,0.3); }
+.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.ans-wrap{position:relative}
+.ans-btn{width:100%;background:var(--plight);border:3px solid transparent;border-radius:14px;padding:13px 34px 13px 10px;font-size:.95rem;font-weight:900;font-family:'Courier New',monospace;letter-spacing:1px;cursor:pointer;text-align:center;transition:background .15s,border-color .15s,transform .1s;-webkit-tap-highlight-color:transparent;color:var(--text)}
+.ans-btn:active{transform:scale(.97)}
+.ans-btn:hover{border-color:var(--primary);background:#d0d8ff}
+.ans-btn.correct{background:var(--glight);border-color:var(--green);color:var(--green)}
+.ans-btn.wrong{background:var(--rlight);border-color:var(--red);color:var(--red)}
+.ans-btn.disabled{pointer-events:none}
+.ans-speak{position:absolute;right:7px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.7);border:none;border-radius:50%;width:24px;height:24px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2}
+.ans-speak:hover{background:rgba(255,255,255,.95)}
 
-  /* ── GAME SCREEN ────────────────────────────── */
-  #game-screen {
-    display: none;
-    padding: 16px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
+.gifted-game .ans-btn{background:var(--plightbg)}
+.gifted-game .ans-btn:hover{border-color:var(--purple);background:#e8d5f0}
+.gifted-game #progress-bar{background:var(--purple)}
+.test-game #progress-bar{background:#b5501b}
+.test-game .ans-btn{background:#fff8f5}
+.test-game .ans-btn:hover{border-color:#e07030;background:#fde8d8}
 
-  #back-btn {
-    background: none; border: none;
-    font-size: 1rem; font-weight: 900; letter-spacing: 1px;
-    color: var(--primary); cursor: pointer;
-    display: flex; align-items: center; gap: 6px;
-    padding: 4px 0 16px;
-    -webkit-tap-highlight-color: transparent;
-  }
+#feedback{min-height:34px;font-size:1rem;font-weight:900;letter-spacing:1px;text-align:center;padding:7px 0;font-family:'Courier New',monospace}
+#feedback.ok{color:var(--green)}
+#feedback.err{color:var(--red)}
 
-  #progress-bar-wrap {
-    height: 10px; border-radius: 10px;
-    background: #dde3ff;
-    margin-bottom: 18px; overflow: hidden;
-  }
-  #progress-bar {
-    height: 100%; border-radius: 10px;
-    background: var(--primary);
-    transition: width .4s ease;
-  }
-
-  #question-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 24px 20px 20px;
-    box-shadow: var(--shadow);
-    margin-bottom: 16px;
-  }
-
-  #q-label {
-    font-size: 0.65rem; letter-spacing: 3px;
-    font-weight: 900; color: var(--text-soft);
-    margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;
-  }
-
-  #tts-btn {
-    background: var(--primary-light);
-    border: none; border-radius: 30px;
-    padding: 5px 12px; cursor: pointer;
-    font-size: 0.75rem; font-weight: 900;
-    color: var(--primary); letter-spacing: 1px;
-    display: flex; align-items: center; gap: 5px;
-    transition: background .15s;
-  }
-  #tts-btn:hover { background: #d0d8ff; }
-  #tts-btn:active { transform: scale(0.95); }
-
-  #q-text {
-    font-size: 1.5rem; font-weight: 900;
-    letter-spacing: 1px;
-    line-height: 1.3;
-    margin-bottom: 6px;
-    font-family: 'Courier New', monospace;
-  }
-
-  #q-emoji { font-size: 2.8rem; margin: 10px 0; display: block; text-align: center; }
-
-  .answer-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 14px;
-  }
-
-  .ans-btn {
-    background: var(--primary-light);
-    border: 3px solid transparent;
-    border-radius: 14px;
-    padding: 14px 10px;
-    font-size: 1rem; font-weight: 900;
-    font-family: 'Courier New', monospace;
-    letter-spacing: 1px;
-    cursor: pointer; text-align: center;
-    transition: background .15s, border-color .15s, transform .1s;
-    -webkit-tap-highlight-color: transparent;
-    color: var(--text);
-  }
-  .ans-btn:active { transform: scale(0.97); }
-  .ans-btn:hover  { border-color: var(--primary); background: #d0d8ff; }
-  .ans-btn.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
-  .ans-btn.wrong   { background: var(--red-light); border-color: var(--red); color: var(--red); }
-  .ans-btn.disabled { pointer-events: none; }
-
-  /* gifted variant */
-  .gifted-game .ans-btn { background: var(--purple-light); }
-  .gifted-game .ans-btn:hover { border-color: var(--purple); background: #e8d5f0; }
-  .gifted-game #progress-bar { background: var(--purple); }
-
-  #feedback {
-    min-height: 36px;
-    font-size: 1.1rem; font-weight: 900; letter-spacing: 1px;
-    text-align: center; padding: 8px 0;
-    font-family: 'Courier New', monospace;
-  }
-  #feedback.ok  { color: var(--green); }
-  #feedback.err { color: var(--red); }
-
-  /* ── RESULT SCREEN ──────────────────────────── */
-  #result-screen {
-    display: none;
-    padding: 30px 20px;
-    max-width: 500px; margin: 0 auto;
-    text-align: center;
-  }
-  #result-screen .big-emoji { font-size: 5rem; margin-bottom: 10px; }
-  #result-screen h2 { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; font-family: 'Courier New', monospace; }
-  #result-screen p { color: var(--text-soft); margin-bottom: 24px; font-size: 1rem; }
-  .result-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .result-btns button {
-    padding: 14px 24px; border: none; border-radius: 14px;
-    font-size: 0.9rem; font-weight: 900; letter-spacing: 1.5px;
-    cursor: pointer; transition: transform .1s;
-    font-family: 'Courier New', monospace;
-  }
-  .result-btns button:active { transform: scale(0.97); }
-  #btn-again { background: var(--primary); color: #fff; }
-  #btn-menu  { background: var(--yellow); color: var(--text); }
+/* RESULT */
+#result-screen{display:none;padding:28px 20px;max-width:500px;margin:0 auto;text-align:center}
+#result-screen .big-emoji{font-size:4.5rem;margin-bottom:10px}
+#result-screen h2{font-size:1.7rem;font-weight:900;letter-spacing:2px;margin-bottom:7px;font-family:'Courier New',monospace}
+#result-screen p{color:var(--soft);margin-bottom:20px;font-size:.95rem;font-family:'Courier New',monospace}
+.result-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.result-btns button{padding:13px 22px;border:none;border-radius:14px;font-size:.88rem;font-weight:900;letter-spacing:1.5px;cursor:pointer;transition:transform .1s;font-family:'Courier New',monospace}
+.result-btns button:active{transform:scale(.97)}
+#btn-again{background:var(--primary);color:#fff}
+#btn-menu{background:var(--yellow);color:var(--text)}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div id="header">
   <h1>⭐ LERN-APP</h1>
-  <div id="star-display">⭐ <span id="total-stars">0</span></div>
+  <div id="header-right">
+    <div id="user-pill" onclick="showLogin()">👤 —</div>
+    <div id="star-display">⭐ <span id="total-stars">0</span></div>
+  </div>
 </div>
 
-<!-- MAIN MENU -->
-<div id="menu">
+<!-- LOGIN -->
+<div id="login-screen">
+  <div style="font-size:3rem;margin-bottom:12px">👤</div>
+  <h2>WER SPIELT?</h2>
+  <p>Wähle deinen Namen oder füge einen neuen hinzu!</p>
+  <div class="user-list" id="user-list"></div>
+  <div class="new-user-area">
+    <input id="new-name" placeholder="NEUER NAME..." maxlength="12" autocomplete="off"/>
+    <button id="add-user-btn" onclick="addUser()">＋</button>
+  </div>
+</div>
 
-  <div class="category-title">📚 SPRACHE &amp; LESEN</div>
+<!-- MENU -->
+<div id="menu">
+  <div class="category-title">📖 SPRACHE &amp; LESEN</div>
   <div class="game-grid">
     <button class="game-btn" onclick="startGame('anlaute')"><div class="icon">🔤</div><div class="label">ANLAUTE</div></button>
     <button class="game-btn" onclick="startGame('reimen')"><div class="icon">🎵</div><div class="label">REIMEN</div></button>
@@ -269,7 +144,6 @@
     <button class="game-btn" onclick="startGame('wortbau')"><div class="icon">🧩</div><div class="label">WORTBAU</div></button>
     <button class="game-btn" onclick="startGame('englisch')"><div class="icon">🇬🇧</div><div class="label">ENGLISCH</div></button>
   </div>
-
   <div class="category-title">🔢 MATHE &amp; LOGIK</div>
   <div class="game-grid">
     <button class="game-btn" onclick="startGame('zahlen')"><div class="icon">🔢</div><div class="label">ZAHLEN</div></button>
@@ -279,21 +153,31 @@
     <button class="game-btn" onclick="startGame('geld')"><div class="icon">💰</div><div class="label">GELD</div></button>
     <button class="game-btn" onclick="startGame('uhrzeit')"><div class="icon">🕐</div><div class="label">UHRZEIT</div></button>
   </div>
-
   <div class="category-title">🌍 WELT &amp; WISSEN</div>
   <div class="game-grid">
     <button class="game-btn" onclick="startGame('flaggen')"><div class="icon">🏳️</div><div class="label">FLAGGEN</div></button>
     <button class="game-btn" onclick="startGame('autos')"><div class="icon">🚗</div><div class="label">AUTOS</div></button>
     <button class="game-btn" onclick="startGame('tiere')"><div class="icon">🦁</div><div class="label">TIERE</div></button>
   </div>
-
   <div class="category-title gifted">🌟 HOCHBEGABT</div>
   <div class="game-grid">
     <button class="game-btn gifted" onclick="startGame('logik')"><div class="icon">🧠</div><div class="label">LOGIK</div></button>
     <button class="game-btn gifted" onclick="startGame('mathe100')"><div class="icon">💯</div><div class="label">MATHE 100</div></button>
     <button class="game-btn gifted" onclick="startGame('analogien')"><div class="icon">🔗</div><div class="label">ANALOGIEN</div></button>
+    <button class="game-btn gifted" onclick="startGame('raetsel')"><div class="icon">🎭</div><div class="label">RÄTSEL</div></button>
+    <button class="game-btn gifted" onclick="startGame('folgen')"><div class="icon">📈</div><div class="label">ZAHLENFOLGEN</div></button>
+    <button class="game-btn gifted" onclick="startGame('raeumlich')"><div class="icon">🔲</div><div class="label">RÄUMLICH</div></button>
   </div>
-
+  <div class="category-title special">🏆 GESAMTTEST</div>
+  <div class="game-grid" style="grid-template-columns:1fr">
+    <button class="game-btn special-btn" onclick="startGame('gesamttest')" style="flex-direction:row;gap:14px;padding:18px 20px">
+      <div class="icon">📝</div>
+      <div style="text-align:left">
+        <div class="label" style="font-size:.8rem;margin-bottom:3px">GESAMTTEST</div>
+        <div style="font-size:.65rem;color:var(--soft);letter-spacing:.5px">10 ZUFALLSFRAGEN AUS ALLEN BEREICHEN</div>
+      </div>
+    </button>
+  </div>
   <div id="badges">
     <h3>MEINE ABZEICHEN</h3>
     <div class="badge-row">
@@ -301,12 +185,16 @@
       <div class="badge" id="badge-2" title="15 Sterne">🥈</div>
       <div class="badge" id="badge-3" title="30 Sterne">🥇</div>
       <div class="badge" id="badge-4" title="60 Sterne">🏆</div>
-      <div class="badge" id="badge-4g" title="Hochbegabt-Quiz geschafft">🌟</div>
+      <div class="badge" id="badge-4g" title="Hochbegabt-Quiz">🌟</div>
     </div>
+  </div>
+  <div id="ranking-box">
+    <h3>🏆 RANGLISTE</h3>
+    <div id="ranking-list"></div>
   </div>
 </div>
 
-<!-- GAME SCREEN -->
+<!-- GAME -->
 <div id="game-screen">
   <button id="back-btn" onclick="goMenu()">← ZURÜCK</button>
   <div id="progress-bar-wrap"><div id="progress-bar" style="width:0%"></div></div>
@@ -315,6 +203,7 @@
       <span id="q-counter">FRAGE 1 / 6</span>
       <button id="tts-btn" onclick="speakQuestion()">🔊 VORLESEN</button>
     </div>
+    <div id="clock-display"><canvas id="clock-canvas" width="160" height="160"></canvas></div>
     <div id="q-emoji"></div>
     <div id="q-text"></div>
     <div class="answer-grid" id="answer-grid"></div>
@@ -322,7 +211,7 @@
   <div id="feedback"></div>
 </div>
 
-<!-- RESULT SCREEN -->
+<!-- RESULT -->
 <div id="result-screen">
   <div class="big-emoji" id="result-emoji">🎉</div>
   <h2 id="result-title">SUPER!</h2>
@@ -334,400 +223,592 @@
 </div>
 
 <script>
-/* ══════════════════════════════════════════════
-   GAME DATA
-══════════════════════════════════════════════ */
-const GAMES = {
+/* ── BENUTZER / SPEICHER ── */
+function loadUsers(){try{return JSON.parse(localStorage.getItem('lernapp_users')||'[]')}catch{return[]}}
+function saveUsers(u){localStorage.setItem('lernapp_users',JSON.stringify(u))}
+let users=loadUsers();
+let currentUser=null;
 
-  anlaute: {
-    title: 'ANLAUTE',
-    questions: [
-      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🦁', answer: 'L', choices: ['L','T','B','M'] },
-      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🐘', answer: 'E', choices: ['E','A','O','U'] },
-      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🍎', answer: 'A', choices: ['A','O','E','I'] },
-      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🐧', answer: 'P', choices: ['P','B','D','F'] },
-      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🚀', answer: 'R', choices: ['R','S','T','N'] },
-      { q: 'WAS IST DER ERSTE BUCHSTABE?', emoji: '🌺', answer: 'B', choices: ['B','D','P','G'] },
-    ]
-  },
+function showLogin(){
+  document.getElementById('menu').style.display='none';
+  document.getElementById('game-screen').style.display='none';
+  document.getElementById('result-screen').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  renderUserList();
+}
 
-  reimen: {
-    title: 'REIMEN',
-    questions: [
-      { q: 'WAS REIMT SICH AUF "HAUS"?', emoji: '🏠', answer: 'MAUS', choices: ['MAUS','HUND','BAUM','MOND'] },
-      { q: 'WAS REIMT SICH AUF "KATZE"?', emoji: '🐱', answer: 'MATZE', choices: ['MATZE','HUND','VOGEL','BALL'] },
-      { q: 'WAS REIMT SICH AUF "BALL"?', emoji: '⚽', answer: 'HALL', choices: ['HALL','BAUM','TISCH','GLAS'] },
-      { q: 'WAS REIMT SICH AUF "BUCH"?', emoji: '📚', answer: 'TUCH', choices: ['TUCH','BETT','GRAS','MOND'] },
-      { q: 'WAS REIMT SICH AUF "BOOT"?', emoji: '⛵', answer: 'ROT', choices: ['ROT','BLAU','GRUN','GELB'] },
-      { q: 'WAS REIMT SICH AUF "BAUM"?', emoji: '🌳', answer: 'RAUM', choices: ['RAUM','HAUS','BUCH','TISCH'] },
-    ]
-  },
-
-  silben: {
-    title: 'SILBEN',
-    questions: [
-      { q: 'WIE VIELE SILBEN HAT "HUND"?', emoji: '🐶', answer: '1', choices: ['1','2','3','4'] },
-      { q: 'WIE VIELE SILBEN HAT "KA-TZE"?', emoji: '🐱', answer: '2', choices: ['2','1','3','4'] },
-      { q: 'WIE VIELE SILBEN HAT "ELE-FANT"?', emoji: '🐘', answer: '3', choices: ['3','2','1','4'] },
-      { q: 'WIE VIELE SILBEN HAT "SCHU-LE"?', emoji: '🏫', answer: '2', choices: ['2','1','3','4'] },
-      { q: 'WIE VIELE SILBEN HAT "AU-TO"?', emoji: '🚗', answer: '2', choices: ['2','1','3','4'] },
-      { q: 'WIE VIELE SILBEN HAT "SCH-MET-TER-LING"?', emoji: '🦋', answer: '4', choices: ['4','3','2','1'] },
-    ]
-  },
-
-  woerter: {
-    title: 'WÖRTER',
-    questions: [
-      { q: 'WAS SIEHST DU?', emoji: '🍎', answer: 'APFEL', choices: ['APFEL','BIRNE','PFLAUME','KIRSCHE'] },
-      { q: 'WAS SIEHST DU?', emoji: '🐸', answer: 'FROSCH', choices: ['FROSCH','VOGEL','FISCH','SPINNE'] },
-      { q: 'WAS SIEHST DU?', emoji: '🌙', answer: 'MOND', choices: ['MOND','SONNE','STERN','WOLKE'] },
-      { q: 'WAS SIEHST DU?', emoji: '🎈', answer: 'BALLON', choices: ['BALLON','KUGEL','KREIS','RING'] },
-      { q: 'WAS SIEHST DU?', emoji: '🦋', answer: 'SCHMETTERLING', choices: ['SCHMETTERLING','HUMMEL','WESPE','LIBELLE'] },
-      { q: 'WAS SIEHST DU?', emoji: '🌈', answer: 'REGENBOGEN', choices: ['REGENBOGEN','REGEN','BOGEN','SONNE'] },
-    ]
-  },
-
-  wortbau: {
-    title: 'WORTBAU',
-    questions: [
-      { q: 'HUND + HAUS = ?', emoji: '🐶🏠', answer: 'HUNDEHAUS', choices: ['HUNDEHAUS','HAUSEHUND','HAUSHUND','HUNDHAUS'] },
-      { q: 'SONNEN + BLUME = ?', emoji: '☀️🌸', answer: 'SONNENBLUME', choices: ['SONNENBLUME','BLUMENSONNE','SONNBLUME','BLUMESONNE'] },
-      { q: 'APFEL + SAFT = ?', emoji: '🍎🥤', answer: 'APFELSAFT', choices: ['APFELSAFT','SAFTAPFEL','APFELSAFE','SAFTFRUCHT'] },
-      { q: 'SCHULE + TASCHE = ?', emoji: '🏫👜', answer: 'SCHULTASCHE', choices: ['SCHULTASCHE','TASCHENSCHULE','SCHULTISCH','TASCHENBAND'] },
-      { q: 'FEUER + WEHR = ?', emoji: '🔥🚒', answer: 'FEUERWEHR', choices: ['FEUERWEHR','WEHRFEUER','FEUERWERK','BRANDWEHR'] },
-      { q: 'WASSER + FLASCHE = ?', emoji: '💧🍶', answer: 'WASSERFLASCHE', choices: ['WASSERFLASCHE','FLASCHENWASSER','WASSERFLACH','FLASCHWASSER'] },
-    ]
-  },
-
-  englisch: {
-    title: 'ENGLISCH',
-    questions: [
-      { q: 'WAS BEDEUTET "APPLE"?', emoji: '🍎', answer: 'APFEL', choices: ['APFEL','BIRNE','BANANE','KIRSCHE'] },
-      { q: 'WAS BEDEUTET "DOG"?', emoji: '🐶', answer: 'HUND', choices: ['HUND','KATZE','VOGEL','PFERD'] },
-      { q: 'WAS BEDEUTET "HOUSE"?', emoji: '🏠', answer: 'HAUS', choices: ['HAUS','BAUM','AUTO','SCHULE'] },
-      { q: 'WAS BEDEUTET "SUN"?', emoji: '☀️', answer: 'SONNE', choices: ['SONNE','MOND','STERN','REGEN'] },
-      { q: 'WAS BEDEUTET "FISH"?', emoji: '🐟', answer: 'FISCH', choices: ['FISCH','VOGEL','SCHLANGE','KÄFER'] },
-      { q: 'WAS BEDEUTET "FLOWER"?', emoji: '🌸', answer: 'BLUME', choices: ['BLUME','BAUM','GRAS','BUSCH'] },
-    ]
-  },
-
-  zahlen: {
-    title: 'ZAHLEN',
-    questions: [
-      { q: 'WIE VIELE ÄPFEL SIEHST DU?', emoji: '🍎🍎🍎', answer: '3', choices: ['3','2','4','5'] },
-      { q: 'WIE VIELE STERNE SIEHST DU?', emoji: '⭐⭐⭐⭐⭐', answer: '5', choices: ['5','4','6','3'] },
-      { q: 'WAS KOMMT NACH 7?', emoji: '7️⃣', answer: '8', choices: ['8','6','9','10'] },
-      { q: 'WAS IST MEHR?', emoji: '', answer: '15', choices: ['15','12','9','11'] },
-      { q: 'WAS KOMMT VOR 10?', emoji: '🔟', answer: '9', choices: ['9','8','11','7'] },
-      { q: 'WIE VIELE FINGER HAT EINE HAND?', emoji: '✋', answer: '5', choices: ['5','4','6','10'] },
-    ]
-  },
-
-  rechnen: {
-    title: 'RECHNEN',
-    questions: [
-      { q: '3 + 4 = ?', emoji: '➕', answer: '7', choices: ['7','6','8','5'] },
-      { q: '9 - 3 = ?', emoji: '➖', answer: '6', choices: ['6','5','7','8'] },
-      { q: '5 + 5 = ?', emoji: '➕', answer: '10', choices: ['10','9','11','8'] },
-      { q: '8 - 5 = ?', emoji: '➖', answer: '3', choices: ['3','2','4','5'] },
-      { q: '6 + 4 = ?', emoji: '➕', answer: '10', choices: ['10','9','11','12'] },
-      { q: '10 - 3 = ?', emoji: '➖', answer: '7', choices: ['7','6','8','9'] },
-    ]
-  },
-
-  muster: {
-    title: 'MUSTER',
-    questions: [
-      { q: 'WAS KOMMT ALS NÄCHSTES?\n🔴 🔵 🔴 🔵 🔴 ?', emoji: '', answer: '🔵', choices: ['🔵','🔴','🟡','🟢'] },
-      { q: 'WAS KOMMT ALS NÄCHSTES?\n⭐ ⭐ 🌙 ⭐ ⭐ ?', emoji: '', answer: '🌙', choices: ['🌙','⭐','☀️','🌟'] },
-      { q: 'WAS KOMMT ALS NÄCHSTES?\n🐱 🐶 🐱 🐶 🐱 ?', emoji: '', answer: '🐶', choices: ['🐶','🐱','🐸','🐼'] },
-      { q: 'WAS KOMMT ALS NÄCHSTES?\n2 4 6 8 ?', emoji: '🔢', answer: '10', choices: ['10','9','11','12'] },
-      { q: 'WAS KOMMT ALS NÄCHSTES?\n1 3 5 7 ?', emoji: '🔢', answer: '9', choices: ['9','8','10','11'] },
-      { q: 'WAS KOMMT ALS NÄCHSTES?\n🍎 🍌 🍊 🍎 🍌 ?', emoji: '', answer: '🍊', choices: ['🍊','🍎','🍌','🍇'] },
-    ]
-  },
-
-  formen: {
-    title: 'FORMEN',
-    questions: [
-      { q: 'WAS FÜR EINE FORM IST DAS?', emoji: '⬛', answer: 'QUADRAT', choices: ['QUADRAT','KREIS','DREIECK','RECHTECK'] },
-      { q: 'WAS FÜR EINE FORM IST DAS?', emoji: '⭕', answer: 'KREIS', choices: ['KREIS','QUADRAT','OVAL','RING'] },
-      { q: 'WAS FÜR EINE FORM IST DAS?', emoji: '🔺', answer: 'DREIECK', choices: ['DREIECK','QUADRAT','KREIS','STERN'] },
-      { q: 'WELCHE FORM HAT EIN BALL?', emoji: '⚽', answer: 'KUGEL', choices: ['KUGEL','WÜRFEL','KREIS','ZYLINDER'] },
-      { q: 'WIE VIELE ECKEN HAT EIN QUADRAT?', emoji: '⬛', answer: '4', choices: ['4','3','5','6'] },
-      { q: 'WIE VIELE ECKEN HAT EIN DREIECK?', emoji: '🔺', answer: '3', choices: ['3','4','5','2'] },
-    ]
-  },
-
-  geld: {
-    title: 'GELD',
-    questions: [
-      { q: 'WIE VIEL IST EINE 1-EURO-MÜNZE WERT?', emoji: '🪙', answer: '100 CENT', choices: ['100 CENT','50 CENT','10 CENT','200 CENT'] },
-      { q: 'DU HAST 2 EURO. DAS EIS KOSTET 1 EURO. WAS BLEIBT?', emoji: '🍦', answer: '1 EURO', choices: ['1 EURO','2 EURO','50 CENT','0'] },
-      { q: 'WAS IST MEHR WERT?', emoji: '💶', answer: '2 EURO', choices: ['2 EURO','50 CENT','20 CENT','1 EURO'] },
-      { q: '3 ÄPFEL ZU JE 1 EURO. WAS KOSTET ALLES?', emoji: '🍎🍎🍎', answer: '3 EURO', choices: ['3 EURO','2 EURO','4 EURO','1 EURO'] },
-      { q: 'WAS IST KLEINER ALS 1 EURO?', emoji: '🪙', answer: '50 CENT', choices: ['50 CENT','1 EURO','2 EURO','5 EURO'] },
-      { q: 'DU HAST 5 EURO. DU KAUFST EIN BUCH FÜR 3 EURO. WAS BLEIBT?', emoji: '📚', answer: '2 EURO', choices: ['2 EURO','3 EURO','4 EURO','1 EURO'] },
-    ]
-  },
-
-  uhrzeit: {
-    title: 'UHRZEIT',
-    questions: [
-      { q: 'WIE VIELE STUNDEN HAT EIN TAG?', emoji: '🕐', answer: '24', choices: ['24','12','60','48'] },
-      { q: 'WIE VIELE MINUTEN HAT EINE STUNDE?', emoji: '⏱️', answer: '60', choices: ['60','30','24','100'] },
-      { q: 'WAS IST "HALB DREI"?', emoji: '🕝', answer: '2:30 UHR', choices: ['2:30 UHR','3:00 UHR','3:30 UHR','2:00 UHR'] },
-      { q: 'DU SCHLÄFST UM 8 UHR. 1 STUNDE LATER IST ES?', emoji: '😴', answer: '9 UHR', choices: ['9 UHR','8 UHR','10 UHR','7 UHR'] },
-      { q: 'WAS KOMMT ZUERST?', emoji: '🌅', answer: 'MORGEN', choices: ['MORGEN','MITTAG','ABEND','NACHT'] },
-      { q: 'SCHULE BEGINNT UM 8. DU BIST 30 MIN ZU SPÄT. WANN KOMMST DU?', emoji: '🏫', answer: '8:30 UHR', choices: ['8:30 UHR','8:00 UHR','9:00 UHR','7:30 UHR'] },
-    ]
-  },
-
-  flaggen: {
-    title: 'FLAGGEN',
-    questions: [
-      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇩🇪', answer: 'DEUTSCHLAND', choices: ['DEUTSCHLAND','ÖSTERREICH','SCHWEIZ','BELGIEN'] },
-      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇦🇹', answer: 'ÖSTERREICH', choices: ['ÖSTERREICH','DEUTSCHLAND','UNGARN','SCHWEIZ'] },
-      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇫🇷', answer: 'FRANKREICH', choices: ['FRANKREICH','ITALIEN','SPANIEN','BELGIEN'] },
-      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇮🇹', answer: 'ITALIEN', choices: ['ITALIEN','SPANIEN','PORTUGAL','FRANKREICH'] },
-      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇬🇧', answer: 'ENGLAND', choices: ['ENGLAND','IRLAND','SCHOTTLAND','WALES'] },
-      { q: 'WELCHES LAND HAT DIESE FLAGGE?', emoji: '🇺🇸', answer: 'USA', choices: ['USA','KANADA','AUSTRALIEN','MEXIKO'] },
-    ]
-  },
-
-  autos: {
-    title: 'AUTOS',
-    questions: [
-      { q: 'WO WIRD VW GEBAUT?', emoji: '🚗', answer: 'DEUTSCHLAND', choices: ['DEUTSCHLAND','ÖSTERREICH','FRANKREICH','ITALIEN'] },
-      { q: 'WIE HEISST DAS LOGO VON BMW?', emoji: '🔵⚪', answer: 'BLAU-WEISS KREIS', choices: ['BLAU-WEISS KREIS','STERN','RINGE','PFEIL'] },
-      { q: 'WAS BEDEUTET VW?', emoji: '🚙', answer: 'VOLKSWAGEN', choices: ['VOLKSWAGEN','VOLVO WERK','VOLL WAGEN','VOLKS WERK'] },
-      { q: 'WELCHE FARBE HAT EIN FERRARI MEISTENS?', emoji: '🏎️', answer: 'ROT', choices: ['ROT','BLAU','GRÜN','GELB'] },
-      { q: 'WO KOMMT FERRARI HER?', emoji: '🏎️', answer: 'ITALIEN', choices: ['ITALIEN','SPANIEN','FRANKREICH','DEUTSCHLAND'] },
-      { q: 'WIE VIELE REIFEN HAT EIN NORMAL-AUTO?', emoji: '🚗', answer: '4', choices: ['4','3','5','6'] },
-    ]
-  },
-
-  tiere: {
-    title: 'TIERE',
-    questions: [
-      { q: 'WAS MACHT DIE KUH?', emoji: '🐮', answer: 'MUH', choices: ['MUH','MIAU','WUFF','QUAK'] },
-      { q: 'WO LEBT EIN PINGUIN?', emoji: '🐧', answer: 'AM SÜDPOL', choices: ['AM SÜDPOL','IM DSCHUNGEL','IN DER WÜSTE','AM NORDPOL'] },
-      { q: 'WAS FRISST EIN HASE?', emoji: '🐰', answer: 'MÖHREN', choices: ['MÖHREN','FISCH','FLEISCH','KÄSE'] },
-      { q: 'WIE HEISST DAS JUNGE VON EINEM HUND?', emoji: '🐶', answer: 'WELPE', choices: ['WELPE','KÄTZCHEN','FOHLEN','FERKEL'] },
-      { q: 'WAS IST DAS GRÖSSTE TIER DER WELT?', emoji: '🌊', answer: 'BLAUWAL', choices: ['BLAUWAL','ELEFANT','GIRAFFE','NASHORN'] },
-      { q: 'WO LEBT EIN KROKODIL?', emoji: '🐊', answer: 'AM FLUSS', choices: ['AM FLUSS','AM NORDPOL','IN DER WÜSTE','AUF DEM BERG'] },
-    ]
-  },
-
-  // ── HOCHBEGABT ────────────────────────────────
-  logik: {
-    title: 'LOGIK',
-    gifted: true,
-    questions: [
-      { q: 'ALLE KATZEN HABEN FELL.\nMITZI IST EINE KATZE.\nHAT MITZI FELL?', emoji: '🐱', answer: 'JA, SIE HAT FELL', choices: ['JA, SIE HAT FELL','NEIN, KEIN FELL','VIELLEICHT','ICH WEISS ES NICHT'] },
-      { q: 'ALLE VÖGEL KÖNNEN FLIEGEN.\nEIN PINGUIN IST EIN VOGEL.\nKANN DER PINGUIN FLIEGEN?', emoji: '🐧', answer: 'LAUT REGEL: JA', choices: ['LAUT REGEL: JA','NEIN','NUR IM SOMMER','MANCHMAL'] },
-      { q: 'WENN ES REGNET, WIRD DIE STRASSE NASS.\nES REGNET.\nWAS PASSIERT?', emoji: '🌧️', answer: 'STRASSE WIRD NASS', choices: ['STRASSE WIRD NASS','SONNE SCHEINT','NICHTS PASSIERT','SCHNEE FÄLLT'] },
-      { q: 'MAX IST GRÖSSER ALS ANNA. ANNA IST GRÖSSER ALS TOM. WER IST AM KLEINSTEN?', emoji: '👦👧👶', answer: 'TOM', choices: ['TOM','ANNA','MAX','ALLE GLEICH'] },
-      { q: 'EIN VIERECK HAT 4 SEITEN. EIN DREIECK HAT 3 SEITEN. WIE VIELE SEITEN HAT EIN FÜNFECK?', emoji: '⬠', answer: '5', choices: ['5','4','6','3'] },
-      { q: 'WENN 2 + 2 = 4, WAS IST DANN 4 + 4?', emoji: '🔢', answer: '8', choices: ['8','6','10','16'] },
-    ]
-  },
-
-  mathe100: {
-    title: 'MATHE 100',
-    gifted: true,
-    questions: [
-      { q: '47 + 13 = ?', emoji: '➕', answer: '60', choices: ['60','50','70','58'] },
-      { q: '83 - 24 = ?', emoji: '➖', answer: '59', choices: ['59','69','49','60'] },
-      { q: '25 + 36 = ?', emoji: '➕', answer: '61', choices: ['61','51','71','60'] },
-      { q: '100 - 37 = ?', emoji: '➖', answer: '63', choices: ['63','67','73','53'] },
-      { q: '5 × 4 = ?', emoji: '✖️', answer: '20', choices: ['20','15','25','24'] },
-      { q: '3 × 8 = ?', emoji: '✖️', answer: '24', choices: ['24','21','27','28'] },
-    ]
-  },
-
-  analogien: {
-    title: 'ANALOGIEN',
-    gifted: true,
-    questions: [
-      { q: 'HUND BELLT.\nKATZE ... ?', emoji: '🐱', answer: 'MIAUT', choices: ['MIAUT','BELLT','QUAKT','ZISCHT'] },
-      { q: 'VOGEL FLIEGT.\nFISCH ... ?', emoji: '🐟', answer: 'SCHWIMMT', choices: ['SCHWIMMT','FLIEGT','LÄUFT','KRIECHT'] },
-      { q: 'TAG IST HELL.\nNACHT IST ... ?', emoji: '🌙', answer: 'DUNKEL', choices: ['DUNKEL','HELL','WARM','KALT'] },
-      { q: 'FEUER IST HEISS.\nEIS IST ... ?', emoji: '🧊', answer: 'KALT', choices: ['KALT','HEISS','WARM','NASS'] },
-      { q: 'BUCH : LESEN = MUSIK : ... ?', emoji: '🎵', answer: 'HÖREN', choices: ['HÖREN','SEHEN','SCHMECKEN','RIECHEN'] },
-      { q: 'KLEIN IST DAS GEGENTEIL VON GROSS.\nSCHNELL IST DAS GEGENTEIL VON ... ?', emoji: '🐢', answer: 'LANGSAM', choices: ['LANGSAM','SCHNELL','GROSS','LAUT'] },
-    ]
+function renderUserList(){
+  const ul=document.getElementById('user-list');
+  ul.innerHTML='';
+  const sorted=[...users].sort((a,b)=>b.stars-a.stars);
+  sorted.forEach(u=>{
+    const btn=document.createElement('button');
+    btn.className='user-btn';
+    btn.innerHTML=`<span>👤 ${u.name}</span><span class="ustars">⭐ ${u.stars}</span>`;
+    btn.onclick=()=>selectUser(u.name);
+    ul.appendChild(btn);
+  });
+  if(users.length===0){
+    ul.innerHTML='<p style="color:var(--soft);font-size:.85rem">Noch keine Benutzer — füge einen hinzu!</p>';
   }
+}
+
+function addUser(){
+  const inp=document.getElementById('new-name');
+  const name=inp.value.trim().toUpperCase();
+  if(!name||name.length<1)return;
+  if(users.find(u=>u.name===name)){selectUser(name);inp.value='';return;}
+  users.push({name,stars:0,giftedDone:0});
+  saveUsers(users);
+  inp.value='';
+  selectUser(name);
+}
+document.getElementById('new-name').addEventListener('keydown',e=>{if(e.key==='Enter')addUser();});
+
+function selectUser(name){
+  currentUser=users.find(u=>u.name===name);
+  if(!currentUser)return;
+  totalStars=currentUser.stars;
+  giftedCompleted=currentUser.giftedDone||0;
+  document.getElementById('total-stars').textContent=totalStars;
+  document.getElementById('user-pill').textContent='👤 '+currentUser.name;
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('menu').style.display='block';
+  updateBadges();
+  renderRanking();
+}
+
+function saveCurrentUser(){
+  if(!currentUser)return;
+  const idx=users.findIndex(u=>u.name===currentUser.name);
+  if(idx>=0){users[idx].stars=totalStars;users[idx].giftedDone=giftedCompleted;}
+  saveUsers(users);
+}
+
+function renderRanking(){
+  const el=document.getElementById('ranking-list');
+  const sorted=[...users].sort((a,b)=>b.stars-a.stars);
+  const medals=['🥇','🥈','🥉'];
+  el.innerHTML=sorted.map((u,i)=>`
+    <div class="rank-row${currentUser&&u.name===currentUser.name?' me':''}">
+      <span class="rank-medal">${medals[i]||'🌟'}</span>
+      <span class="rank-name">${u.name}</span>
+      <span class="rank-stars">⭐ ${u.stars}</span>
+    </div>`).join('');
+}
+
+/* ── SPIELDATEN ── */
+const CLOCK_TIMES=[
+  {h:3,m:0,ans:'3:00 UHR',choices:['3:00 UHR','6:00 UHR','9:00 UHR','12:00 UHR']},
+  {h:6,m:0,ans:'6:00 UHR',choices:['6:00 UHR','3:00 UHR','9:00 UHR','12:00 UHR']},
+  {h:9,m:0,ans:'9:00 UHR',choices:['9:00 UHR','3:00 UHR','6:00 UHR','12:00 UHR']},
+  {h:12,m:0,ans:'12:00 UHR',choices:['12:00 UHR','6:00 UHR','3:00 UHR','9:00 UHR']},
+  {h:1,m:30,ans:'1:30 UHR',choices:['1:30 UHR','2:00 UHR','1:00 UHR','2:30 UHR']},
+  {h:4,m:30,ans:'4:30 UHR',choices:['4:30 UHR','5:00 UHR','4:00 UHR','5:30 UHR']},
+  {h:7,m:0,ans:'7:00 UHR',choices:['7:00 UHR','8:00 UHR','6:00 UHR','7:30 UHR']},
+  {h:10,m:30,ans:'10:30 UHR',choices:['10:30 UHR','10:00 UHR','11:00 UHR','11:30 UHR']},
+  {h:2,m:0,ans:'2:00 UHR',choices:['2:00 UHR','3:00 UHR','1:00 UHR','2:30 UHR']},
+  {h:8,m:0,ans:'8:00 UHR',choices:['8:00 UHR','9:00 UHR','7:00 UHR','8:30 UHR']},
+  {h:5,m:30,ans:'5:30 UHR',choices:['5:30 UHR','5:00 UHR','6:00 UHR','6:30 UHR']},
+  {h:11,m:0,ans:'11:00 UHR',choices:['11:00 UHR','12:00 UHR','10:00 UHR','11:30 UHR']},
+];
+
+function clockQ(t){return{q:'WIE VIEL UHR IST ES?\n(SCHAU AUF DIE UHR)',emoji:'',clock:{h:t.h,m:t.m},answer:t.ans,choices:t.choices};}
+
+const GAMES={
+  anlaute:{title:'ANLAUTE',questions:[
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🦁',answer:'L',choices:['L','T','B','M']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🐘',answer:'E',choices:['E','A','O','U']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🍎',answer:'A',choices:['A','O','E','I']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🐧',answer:'P',choices:['P','B','D','F']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🚀',answer:'R',choices:['R','S','T','N']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🌺',answer:'B',choices:['B','D','P','G']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🐸',answer:'F',choices:['F','V','P','B']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🌙',answer:'M',choices:['M','N','W','B']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🐢',answer:'S',choices:['S','Z','T','C']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🎈',answer:'B',choices:['B','P','D','G']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🦊',answer:'F',choices:['F','V','W','B']},
+    {q:'WAS IST DER ERSTE BUCHSTABE?',emoji:'🌈',answer:'R',choices:['R','L','N','W']},
+  ]},
+  reimen:{title:'REIMEN',questions:[
+    {q:'WAS REIMT SICH AUF "HAUS"?',emoji:'🏠',answer:'MAUS',choices:['MAUS','HUND','BAUM','MOND']},
+    {q:'WAS REIMT SICH AUF "KATZE"?',emoji:'🐱',answer:'MATZE',choices:['MATZE','HUND','VOGEL','BALL']},
+    {q:'WAS REIMT SICH AUF "BALL"?',emoji:'⚽',answer:'HALL',choices:['HALL','BAUM','TISCH','GLAS']},
+    {q:'WAS REIMT SICH AUF "BUCH"?',emoji:'📚',answer:'TUCH',choices:['TUCH','BETT','GRAS','MOND']},
+    {q:'WAS REIMT SICH AUF "BOOT"?',emoji:'⛵',answer:'ROT',choices:['ROT','BLAU','GRÜN','GELB']},
+    {q:'WAS REIMT SICH AUF "BAUM"?',emoji:'🌳',answer:'RAUM',choices:['RAUM','HAUS','BUCH','TISCH']},
+    {q:'WAS REIMT SICH AUF "KIND"?',emoji:'👧',answer:'WIND',choices:['WIND','REGEN','SONNE','MOND']},
+    {q:'WAS REIMT SICH AUF "MAUS"?',emoji:'🐭',answer:'HAUS',choices:['HAUS','TIER','BAUM','GRAS']},
+    {q:'WAS REIMT SICH AUF "HUND"?',emoji:'🐶',answer:'BUND',choices:['BUND','KATZE','BALL','TISCH']},
+    {q:'WAS REIMT SICH AUF "RING"?',emoji:'💍',answer:'KING',choices:['KING','BALL','HAUS','FISCH']},
+    {q:'WAS REIMT SICH AUF "NASE"?',emoji:'👃',answer:'VASE',choices:['VASE','TISCH','GLAS','MOND']},
+    {q:'WAS REIMT SICH AUF "SONNE"?',emoji:'☀️',answer:'WONNE',choices:['WONNE','REGEN','MOND','STERN']},
+  ]},
+  silben:{title:'SILBEN',questions:[
+    {q:'WIE VIELE SILBEN HAT "HUND"?',emoji:'🐶',answer:'1',choices:['1','2','3','4']},
+    {q:'WIE VIELE SILBEN HAT "KA-TZE"?',emoji:'🐱',answer:'2',choices:['2','1','3','4']},
+    {q:'WIE VIELE SILBEN HAT "E-LE-FANT"?',emoji:'🐘',answer:'3',choices:['3','2','1','4']},
+    {q:'WIE VIELE SILBEN HAT "SCHU-LE"?',emoji:'🏫',answer:'2',choices:['2','1','3','4']},
+    {q:'WIE VIELE SILBEN HAT "AU-TO"?',emoji:'🚗',answer:'2',choices:['2','1','3','4']},
+    {q:'WIE VIELE SILBEN HAT "SCHMET-TER-LING"?',emoji:'🦋',answer:'3',choices:['3','4','2','1']},
+    {q:'WIE VIELE SILBEN HAT "SO-FA"?',emoji:'🛋️',answer:'2',choices:['2','1','3','4']},
+    {q:'WIE VIELE SILBEN HAT "KRO-KO-DIL"?',emoji:'🐊',answer:'3',choices:['3','2','4','1']},
+    {q:'WIE VIELE SILBEN HAT "BLUME"?',emoji:'🌸',answer:'2',choices:['2','1','3','4']},
+    {q:'WIE VIELE SILBEN HAT "HIM-BEE-RE"?',emoji:'🍓',answer:'3',choices:['3','2','4','1']},
+    {q:'WIE VIELE SILBEN HAT "FISCH"?',emoji:'🐟',answer:'1',choices:['1','2','3','4']},
+    {q:'WIE VIELE SILBEN HAT "WAS-SER-ME-LO-NE"?',emoji:'🍉',answer:'5',choices:['5','4','3','6']},
+  ]},
+  woerter:{title:'WÖRTER',questions:[
+    {q:'WAS SIEHST DU?',emoji:'🍎',answer:'APFEL',choices:['APFEL','BIRNE','PFLAUME','KIRSCHE']},
+    {q:'WAS SIEHST DU?',emoji:'🐸',answer:'FROSCH',choices:['FROSCH','VOGEL','FISCH','SPINNE']},
+    {q:'WAS SIEHST DU?',emoji:'🌙',answer:'MOND',choices:['MOND','SONNE','STERN','WOLKE']},
+    {q:'WAS SIEHST DU?',emoji:'🎈',answer:'BALLON',choices:['BALLON','KUGEL','KREIS','RING']},
+    {q:'WAS SIEHST DU?',emoji:'🦋',answer:'SCHMETTERLING',choices:['SCHMETTERLING','HUMMEL','WESPE','LIBELLE']},
+    {q:'WAS SIEHST DU?',emoji:'🌈',answer:'REGENBOGEN',choices:['REGENBOGEN','REGEN','BOGEN','SONNE']},
+    {q:'WAS SIEHST DU?',emoji:'🐊',answer:'KROKODIL',choices:['KROKODIL','EIDECHSE','SCHILDKRÖTE','SCHLANGE']},
+    {q:'WAS SIEHST DU?',emoji:'🌻',answer:'SONNENBLUME',choices:['SONNENBLUME','ROSE','TULPE','VEILCHEN']},
+    {q:'WAS SIEHST DU?',emoji:'🦓',answer:'ZEBRA',choices:['ZEBRA','PFERD','ESEL','NILPFERD']},
+    {q:'WAS SIEHST DU?',emoji:'🍦',answer:'EIS',choices:['EIS','CREME','SAHNE','JOGHURT']},
+    {q:'WAS SIEHST DU?',emoji:'🎸',answer:'GITARRE',choices:['GITARRE','GEIGE','FLÖTE','TROMPETE']},
+    {q:'WAS SIEHST DU?',emoji:'🌋',answer:'VULKAN',choices:['VULKAN','BERG','HÜGEL','FELSEN']},
+  ]},
+  wortbau:{title:'WORTBAU',questions:[
+    {q:'HUND + HAUS = ?',emoji:'🐶🏠',answer:'HUNDEHAUS',choices:['HUNDEHAUS','HAUSEHUND','HAUSHUND','HUNDHAUS']},
+    {q:'SONNEN + BLUME = ?',emoji:'☀️🌸',answer:'SONNENBLUME',choices:['SONNENBLUME','BLUMENSONNE','SONNBLUME','BLUMESONNE']},
+    {q:'APFEL + SAFT = ?',emoji:'🍎🥤',answer:'APFELSAFT',choices:['APFELSAFT','SAFTAPFEL','APFELSAFE','SAFTFRUCHT']},
+    {q:'SCHULE + TASCHE = ?',emoji:'🏫👜',answer:'SCHULTASCHE',choices:['SCHULTASCHE','TASCHENSCHULE','SCHULTISCH','TASCHENBAND']},
+    {q:'FEUER + WEHR = ?',emoji:'🔥🚒',answer:'FEUERWEHR',choices:['FEUERWEHR','WEHRFEUER','FEUERWERK','BRANDWEHR']},
+    {q:'WASSER + FLASCHE = ?',emoji:'💧🍶',answer:'WASSERFLASCHE',choices:['WASSERFLASCHE','FLASCHENWASSER','WASSERFLACH','FLASCHWASSER']},
+    {q:'REGEN + BOGEN = ?',emoji:'🌧️🌈',answer:'REGENBOGEN',choices:['REGENBOGEN','BOGENREGEN','REGENMANN','WOLKENBOGEN']},
+    {q:'BLUMEN + TOPF = ?',emoji:'🌸🪴',answer:'BLUMENTOPF',choices:['BLUMENTOPF','TOPFBLUME','TOPFGARTEN','PFLANZENTOPF']},
+    {q:'HAND + SCHUH = ?',emoji:'🤚👟',answer:'HANDSCHUH',choices:['HANDSCHUH','SCHUHHAND','FINGERLING','HANDRING']},
+    {q:'SCHNEE + MANN = ?',emoji:'❄️🧍',answer:'SCHNEEMANN',choices:['SCHNEEMANN','MANNSCHNEE','EISFIGUR','WINTERMANN']},
+    {q:'SPORT + PLATZ = ?',emoji:'⚽🏟️',answer:'SPORTPLATZ',choices:['SPORTPLATZ','PLATZESPORT','SPIELFELD','BALLPLATZ']},
+    {q:'TIER + GARTEN = ?',emoji:'🦁🌿',answer:'TIERGARTEN',choices:['TIERGARTEN','GARTENTIER','ZOOPARK','WILDGARTEN']},
+  ]},
+  englisch:{title:'ENGLISCH',questions:[
+    {q:'WAS BEDEUTET "APPLE"?',emoji:'🍎',answer:'APFEL',choices:['APFEL','BIRNE','BANANE','KIRSCHE']},
+    {q:'WAS BEDEUTET "DOG"?',emoji:'🐶',answer:'HUND',choices:['HUND','KATZE','VOGEL','PFERD']},
+    {q:'WAS BEDEUTET "HOUSE"?',emoji:'🏠',answer:'HAUS',choices:['HAUS','BAUM','AUTO','SCHULE']},
+    {q:'WAS BEDEUTET "SUN"?',emoji:'☀️',answer:'SONNE',choices:['SONNE','MOND','STERN','REGEN']},
+    {q:'WAS BEDEUTET "FISH"?',emoji:'🐟',answer:'FISCH',choices:['FISCH','VOGEL','SCHLANGE','KÄFER']},
+    {q:'WAS BEDEUTET "FLOWER"?',emoji:'🌸',answer:'BLUME',choices:['BLUME','BAUM','GRAS','BUSCH']},
+    {q:'WAS BEDEUTET "WATER"?',emoji:'💧',answer:'WASSER',choices:['WASSER','FEUER','ERDE','LUFT']},
+    {q:'WAS BEDEUTET "STAR"?',emoji:'⭐',answer:'STERN',choices:['STERN','MOND','SONNE','WOLKE']},
+    {q:'WAS BEDEUTET "SCHOOL"?',emoji:'🏫',answer:'SCHULE',choices:['SCHULE','HAUS','KIRCHE','MARKT']},
+    {q:'WAS BEDEUTET "BIRD"?',emoji:'🐦',answer:'VOGEL',choices:['VOGEL','FISCH','KÄFER','HASE']},
+    {q:'WAS BEDEUTET "TREE"?',emoji:'🌳',answer:'BAUM',choices:['BAUM','STRAUCH','BLUME','GRAS']},
+    {q:'WAS BEDEUTET "BOOK"?',emoji:'📚',answer:'BUCH',choices:['BUCH','HEFT','STIFT','TASCHE']},
+  ]},
+  zahlen:{title:'ZAHLEN',questions:[
+    {q:'WIE VIELE ÄPFEL SIEHST DU?',emoji:'🍎🍎🍎',answer:'3',choices:['3','2','4','5']},
+    {q:'WIE VIELE STERNE SIEHST DU?',emoji:'⭐⭐⭐⭐⭐',answer:'5',choices:['5','4','6','3']},
+    {q:'WAS KOMMT NACH 7?',emoji:'7️⃣',answer:'8',choices:['8','6','9','10']},
+    {q:'WAS IST MEHR?',emoji:'',answer:'15',choices:['15','12','9','11']},
+    {q:'WAS KOMMT VOR 10?',emoji:'🔟',answer:'9',choices:['9','8','11','7']},
+    {q:'WIE VIELE FINGER HAT EINE HAND?',emoji:'✋',answer:'5',choices:['5','4','6','10']},
+    {q:'WAS KOMMT NACH 19?',emoji:'',answer:'20',choices:['20','18','21','17']},
+    {q:'WIE VIELE BEINE HAT EIN HUND?',emoji:'🐶',answer:'4',choices:['4','2','6','8']},
+    {q:'WAS IST DIE HÄLFTE VON 10?',emoji:'',answer:'5',choices:['5','4','6','2']},
+    {q:'WELCHE ZAHL KOMMT ZWISCHEN 6 UND 8?',emoji:'',answer:'7',choices:['7','5','9','6']},
+    {q:'WIE VIELE ECKEN HAT EIN DREIECK?',emoji:'🔺',answer:'3',choices:['3','4','2','5']},
+    {q:'WAS IST 2 MAL 5?',emoji:'',answer:'10',choices:['10','8','12','7']},
+  ]},
+  rechnen:{title:'RECHNEN',questions:[
+    {q:'3 + 4 = ?',emoji:'➕',answer:'7',choices:['7','6','8','5']},
+    {q:'9 - 3 = ?',emoji:'➖',answer:'6',choices:['6','5','7','8']},
+    {q:'5 + 5 = ?',emoji:'➕',answer:'10',choices:['10','9','11','8']},
+    {q:'8 - 5 = ?',emoji:'➖',answer:'3',choices:['3','2','4','5']},
+    {q:'6 + 4 = ?',emoji:'➕',answer:'10',choices:['10','9','11','12']},
+    {q:'10 - 3 = ?',emoji:'➖',answer:'7',choices:['7','6','8','9']},
+    {q:'4 + 7 = ?',emoji:'➕',answer:'11',choices:['11','10','12','9']},
+    {q:'12 - 4 = ?',emoji:'➖',answer:'8',choices:['8','7','9','6']},
+    {q:'6 + 6 = ?',emoji:'➕',answer:'12',choices:['12','11','13','10']},
+    {q:'15 - 6 = ?',emoji:'➖',answer:'9',choices:['9','8','10','7']},
+    {q:'3 + 9 = ?',emoji:'➕',answer:'12',choices:['12','11','13','10']},
+    {q:'18 - 9 = ?',emoji:'➖',answer:'9',choices:['9','8','10','7']},
+  ]},
+  muster:{title:'MUSTER',questions:[
+    {q:'WAS KOMMT ALS NÄCHSTES?\n🔴 🔵 🔴 🔵 🔴 ?',emoji:'',answer:'🔵',choices:['🔵','🔴','🟡','🟢']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n⭐ ⭐ 🌙 ⭐ ⭐ ?',emoji:'',answer:'🌙',choices:['🌙','⭐','☀️','🌟']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n🐱 🐶 🐱 🐶 🐱 ?',emoji:'',answer:'🐶',choices:['🐶','🐱','🐸','🐼']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n2  4  6  8  ?',emoji:'🔢',answer:'10',choices:['10','9','11','12']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n1  3  5  7  ?',emoji:'🔢',answer:'9',choices:['9','8','10','11']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n🍎 🍌 🍊 🍎 🍌 ?',emoji:'',answer:'🍊',choices:['🍊','🍎','🍌','🍇']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n10  20  30  40  ?',emoji:'🔢',answer:'50',choices:['50','45','55','60']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n🔶 🔷 🔶 🔷 🔶 ?',emoji:'',answer:'🔷',choices:['🔷','🔶','🔸','🔹']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n5  10  15  20  ?',emoji:'🔢',answer:'25',choices:['25','22','30','24']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n🐘 🐘 🦁 🐘 🐘 ?',emoji:'',answer:'🦁',choices:['🦁','🐘','🐯','🐻']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n1  4  7  10  ?',emoji:'🔢',answer:'13',choices:['13','12','14','11']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n🌸 🌼 🌺 🌸 🌼 ?',emoji:'',answer:'🌺',choices:['🌺','🌸','🌼','🌻']},
+  ]},
+  formen:{title:'FORMEN',questions:[
+    {q:'WAS FÜR EINE FORM IST DAS?',emoji:'⬛',answer:'QUADRAT',choices:['QUADRAT','KREIS','DREIECK','RECHTECK']},
+    {q:'WAS FÜR EINE FORM IST DAS?',emoji:'⭕',answer:'KREIS',choices:['KREIS','QUADRAT','OVAL','RING']},
+    {q:'WAS FÜR EINE FORM IST DAS?',emoji:'🔺',answer:'DREIECK',choices:['DREIECK','QUADRAT','KREIS','STERN']},
+    {q:'WELCHE FORM HAT EIN BALL?',emoji:'⚽',answer:'KUGEL',choices:['KUGEL','WÜRFEL','KREIS','ZYLINDER']},
+    {q:'WIE VIELE ECKEN HAT EIN QUADRAT?',emoji:'⬛',answer:'4',choices:['4','3','5','6']},
+    {q:'WIE VIELE ECKEN HAT EIN DREIECK?',emoji:'🔺',answer:'3',choices:['3','4','5','2']},
+    {q:'WELCHE FORM IST RUND?',emoji:'',answer:'KREIS',choices:['KREIS','QUADRAT','DREIECK','RECHTECK']},
+    {q:'WIE VIELE SEITEN HAT EIN DREIECK?',emoji:'🔺',answer:'3',choices:['3','4','5','2']},
+    {q:'EIN RECHTECK HAT WIE VIELE ECKEN?',emoji:'',answer:'4',choices:['4','3','5','6']},
+    {q:'WELCHE FORM SIEHT WIE EIN GEBÄUDE-DACH AUS?',emoji:'🏠',answer:'DREIECK',choices:['DREIECK','KREIS','QUADRAT','OVAL']},
+    {q:'WIE VIELE SEITEN HAT EIN SECHSECK?',emoji:'',answer:'6',choices:['6','5','7','4']},
+    {q:'WELCHE FORM IST EIN PIZZA-STÜCK?',emoji:'🍕',answer:'DREIECK',choices:['DREIECK','KREIS','QUADRAT','RECHTECK']},
+  ]},
+  geld:{title:'GELD',questions:[
+    {q:'WIE VIEL IST EINE 1-EURO-MÜNZE WERT?',emoji:'🪙',answer:'100 CENT',choices:['100 CENT','50 CENT','10 CENT','200 CENT']},
+    {q:'DU HAST 2 EURO. EIS KOSTET 1 EURO. WAS BLEIBT?',emoji:'🍦',answer:'1 EURO',choices:['1 EURO','2 EURO','50 CENT','0']},
+    {q:'WAS IST MEHR WERT?',emoji:'💶',answer:'2 EURO',choices:['2 EURO','50 CENT','20 CENT','1 EURO']},
+    {q:'3 ÄPFEL ZU JE 1 EURO. WAS KOSTET ALLES?',emoji:'🍎🍎🍎',answer:'3 EURO',choices:['3 EURO','2 EURO','4 EURO','1 EURO']},
+    {q:'WAS IST KLEINER ALS 1 EURO?',emoji:'🪙',answer:'50 CENT',choices:['50 CENT','1 EURO','2 EURO','5 EURO']},
+    {q:'DU HAST 5 EURO. BUCH KOSTET 3 EURO. WAS BLEIBT?',emoji:'📚',answer:'2 EURO',choices:['2 EURO','3 EURO','4 EURO','1 EURO']},
+    {q:'WIE VIELE CENT HAT EIN HALBER EURO?',emoji:'🪙',answer:'50 CENT',choices:['50 CENT','25 CENT','100 CENT','75 CENT']},
+    {q:'DU KAUFST ZWEI DINGE ZU JE 2 EURO. WAS ZAHLST DU?',emoji:'🛍️',answer:'4 EURO',choices:['4 EURO','2 EURO','3 EURO','5 EURO']},
+    {q:'WAS IST MEHR: 3 EURO ODER 250 CENT?',emoji:'💰',answer:'3 EURO',choices:['3 EURO','250 CENT','BEIDE GLEICH','KEINES']},
+    {q:'EIN LUTSCHER KOSTET 30 CENT.\nDU GIBST 50 CENT. WAS BEKOMMST DU ZURÜCK?',emoji:'🍭',answer:'20 CENT',choices:['20 CENT','30 CENT','10 CENT','50 CENT']},
+    {q:'WIE VIELE 50-CENT-MÜNZEN BRAUCHST DU FÜR 2 EURO?',emoji:'🪙',answer:'4',choices:['4','2','3','5']},
+    {q:'DU HAST 10 EURO. DU KAUFST EIN BUCH FÜR 7 EURO.\nWAS BLEIBT?',emoji:'📖',answer:'3 EURO',choices:['3 EURO','4 EURO','2 EURO','5 EURO']},
+  ]},
+  uhrzeit:{title:'UHRZEIT',questions:[
+    {q:'WIE VIELE STUNDEN HAT EIN TAG?',emoji:'🕐',answer:'24',choices:['24','12','60','48']},
+    {q:'WIE VIELE MINUTEN HAT EINE STUNDE?',emoji:'⏱️',answer:'60',choices:['60','30','24','100']},
+    {q:'WAS IST "HALB DREI"?',emoji:'🕝',answer:'2:30 UHR',choices:['2:30 UHR','3:00 UHR','3:30 UHR','2:00 UHR']},
+    {q:'DU SCHLÄFST UM 8 UHR.\n1 STUNDE SPÄTER IST ES?',emoji:'😴',answer:'9 UHR',choices:['9 UHR','8 UHR','10 UHR','7 UHR']},
+    {q:'WAS KOMMT ZUERST AM TAG?',emoji:'🌅',answer:'MORGEN',choices:['MORGEN','MITTAG','ABEND','NACHT']},
+    {q:'SCHULE BEGINNT UM 8.\nDU KOMMST 30 MIN ZU SPÄT.\nWANN KOMMST DU?',emoji:'🏫',answer:'8:30 UHR',choices:['8:30 UHR','8:00 UHR','9:00 UHR','7:30 UHR']},
+    {q:'WIE VIELE SEKUNDEN HAT EINE MINUTE?',emoji:'⏱️',answer:'60',choices:['60','30','100','24']},
+    {q:'ES IST 3:00 UHR.\nIN 2 STUNDEN IST ES?',emoji:'',answer:'5:00 UHR',choices:['5:00 UHR','4:00 UHR','6:00 UHR','3:30 UHR']},
+    {q:'WAS IST "VIERTEL NACH ZWEI"?',emoji:'',answer:'2:15 UHR',choices:['2:15 UHR','2:45 UHR','2:30 UHR','3:15 UHR']},
+    {q:'DER FILM DAUERT 1 STUNDE.\nER BEGINNT UM 4:00 UHR.\nWANN IST ER FERTIG?',emoji:'🎬',answer:'5:00 UHR',choices:['5:00 UHR','4:30 UHR','4:60 UHR','6:00 UHR']},
+    // Ziffernblatt-Fragen
+    ...CLOCK_TIMES.map(clockQ)
+  ]},
+  flaggen:{title:'FLAGGEN',questions:[
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇩🇪',answer:'DEUTSCHLAND',choices:['DEUTSCHLAND','ÖSTERREICH','SCHWEIZ','BELGIEN']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇦🇹',answer:'ÖSTERREICH',choices:['ÖSTERREICH','DEUTSCHLAND','UNGARN','SCHWEIZ']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇫🇷',answer:'FRANKREICH',choices:['FRANKREICH','ITALIEN','SPANIEN','BELGIEN']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇮🇹',answer:'ITALIEN',choices:['ITALIEN','SPANIEN','PORTUGAL','FRANKREICH']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇬🇧',answer:'ENGLAND',choices:['ENGLAND','IRLAND','SCHOTTLAND','WALES']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇺🇸',answer:'USA',choices:['USA','KANADA','AUSTRALIEN','MEXIKO']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇯🇵',answer:'JAPAN',choices:['JAPAN','CHINA','SÜDKOREA','VIETNAM']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇧🇷',answer:'BRASILIEN',choices:['BRASILIEN','ARGENTINIEN','MEXIKO','KOLUMBIEN']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇳🇱',answer:'NIEDERLANDE',choices:['NIEDERLANDE','BELGIEN','LUXEMBURG','DÄNEMARK']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇸🇪',answer:'SCHWEDEN',choices:['SCHWEDEN','NORWEGEN','DÄNEMARK','FINNLAND']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇨🇭',answer:'SCHWEIZ',choices:['SCHWEIZ','ÖSTERREICH','LIECHTENSTEIN','LUXEMBURG']},
+    {q:'WELCHES LAND HAT DIESE FLAGGE?',emoji:'🇪🇸',answer:'SPANIEN',choices:['SPANIEN','PORTUGAL','MEXIKO','ARGENTINIEN']},
+  ]},
+  autos:{title:'AUTOS',questions:[
+    {q:'WO WIRD VW GEBAUT?',emoji:'🚗',answer:'DEUTSCHLAND',choices:['DEUTSCHLAND','ÖSTERREICH','FRANKREICH','ITALIEN']},
+    {q:'WAS BEDEUTET VW?',emoji:'🚙',answer:'VOLKSWAGEN',choices:['VOLKSWAGEN','VOLVO WERK','VOLL WAGEN','VOLKS WERK']},
+    {q:'WELCHE FARBE HAT EIN FERRARI MEISTENS?',emoji:'🏎️',answer:'ROT',choices:['ROT','BLAU','GRÜN','GELB']},
+    {q:'WO KOMMT FERRARI HER?',emoji:'🏎️',answer:'ITALIEN',choices:['ITALIEN','SPANIEN','FRANKREICH','DEUTSCHLAND']},
+    {q:'WIE VIELE REIFEN HAT EIN NORMAL-AUTO?',emoji:'🚗',answer:'4',choices:['4','3','5','6']},
+    {q:'WO KOMMT VOLVO HER?',emoji:'🚘',answer:'SCHWEDEN',choices:['SCHWEDEN','NORWEGEN','DÄNEMARK','FINNLAND']},
+    {q:'WIE HEISST DAS BEKANNTESTE ELEKTROAUTO?',emoji:'⚡',answer:'TESLA',choices:['TESLA','VOLKSWAGEN','BMW','FORD']},
+    {q:'WO KOMMT FIAT HER?',emoji:'🚗',answer:'ITALIEN',choices:['ITALIEN','FRANKREICH','SPANIEN','PORTUGAL']},
+    {q:'WAS IST DER KRAFTSTOFF DER ZUKUNFT?',emoji:'🔋',answer:'STROM',choices:['STROM','BENZIN','DIESEL','GAS']},
+    {q:'WO WIRD TOYOTA GEBAUT?',emoji:'🚗',answer:'JAPAN',choices:['JAPAN','CHINA','SÜDKOREA','INDIEN']},
+    {q:'WIE HEISST DAS SPORTAUTO VON PORSCHE?',emoji:'🏎️',answer:'911',choices:['911','M3','AMG','R8']},
+    {q:'WO KOMMT RENAULT HER?',emoji:'🚗',answer:'FRANKREICH',choices:['FRANKREICH','BELGIEN','ITALIEN','SPANIEN']},
+  ]},
+  tiere:{title:'TIERE',questions:[
+    {q:'WAS MACHT DIE KUH?',emoji:'🐮',answer:'MUH',choices:['MUH','MIAU','WUFF','QUAK']},
+    {q:'WO LEBT EIN PINGUIN?',emoji:'🐧',answer:'AM SÜDPOL',choices:['AM SÜDPOL','IM DSCHUNGEL','IN DER WÜSTE','AM NORDPOL']},
+    {q:'WAS FRISST EIN HASE?',emoji:'🐰',answer:'MÖHREN',choices:['MÖHREN','FISCH','FLEISCH','KÄSE']},
+    {q:'WIE HEISST DAS JUNGE VON EINEM HUND?',emoji:'🐶',answer:'WELPE',choices:['WELPE','KÄTZCHEN','FOHLEN','FERKEL']},
+    {q:'WAS IST DAS GRÖSSTE TIER DER WELT?',emoji:'🌊',answer:'BLAUWAL',choices:['BLAUWAL','ELEFANT','GIRAFFE','NASHORN']},
+    {q:'WO LEBT EIN KROKODIL?',emoji:'🐊',answer:'AM FLUSS',choices:['AM FLUSS','AM NORDPOL','IN DER WÜSTE','AUF DEM BERG']},
+    {q:'WAS MACHT EIN FROSCH?',emoji:'🐸',answer:'QUAK',choices:['QUAK','MUH','WUFF','MIAU']},
+    {q:'WIE VIELE BEINE HAT EINE SPINNE?',emoji:'🕷️',answer:'8',choices:['8','6','4','10']},
+    {q:'WAS FRISST EIN LÖWE?',emoji:'🦁',answer:'FLEISCH',choices:['FLEISCH','GRAS','FRÜCHTE','FISCH']},
+    {q:'WO SCHLÄFT EIN VOGEL?',emoji:'🐦',answer:'IM NEST',choices:['IM NEST','IM WASSER','IM BODEN','IN DER HÖHLE']},
+    {q:'WAS IST DAS SCHNELLSTE TIER AN LAND?',emoji:'🐆',answer:'GEPARD',choices:['GEPARD','LÖWE','PFERD','STRAUSS']},
+    {q:'WIE HEISST DAS JUNGE VON EINER KATZE?',emoji:'🐱',answer:'KÄTZCHEN',choices:['KÄTZCHEN','WELPE','KÜKEN','FERKEL']},
+  ]},
+  logik:{title:'LOGIK',gifted:true,questions:[
+    {q:'ALLE KATZEN HABEN FELL.\nMITZI IST EINE KATZE.\nHAT MITZI FELL?',emoji:'🐱',answer:'JA, SIE HAT FELL',choices:['JA, SIE HAT FELL','NEIN, KEIN FELL','VIELLEICHT','ICH WEISS ES NICHT']},
+    {q:'ALLE VÖGEL KÖNNEN FLIEGEN.\nEIN PINGUIN IST EIN VOGEL.\nKANN DER PINGUIN FLIEGEN?',emoji:'🐧',answer:'LAUT REGEL: JA',choices:['LAUT REGEL: JA','NEIN','NUR IM SOMMER','MANCHMAL']},
+    {q:'WENN ES REGNET, WIRD DIE STRASSE NASS.\nES REGNET.\nWAS PASSIERT?',emoji:'🌧️',answer:'STRASSE WIRD NASS',choices:['STRASSE WIRD NASS','SONNE SCHEINT','NICHTS PASSIERT','SCHNEE FÄLLT']},
+    {q:'MAX IST GRÖSSER ALS ANNA.\nANNA IST GRÖSSER ALS TOM.\nWER IST AM KLEINSTEN?',emoji:'👦👧👶',answer:'TOM',choices:['TOM','ANNA','MAX','ALLE GLEICH']},
+    {q:'EIN VIERECK HAT 4 SEITEN.\nEIN DREIECK HAT 3 SEITEN.\nWIE VIELE SEITEN HAT EIN FÜNFECK?',emoji:'⬠',answer:'5',choices:['5','4','6','3']},
+    {q:'WENN 2 + 2 = 4, WAS IST DANN 4 + 4?',emoji:'🔢',answer:'8',choices:['8','6','10','16']},
+    {q:'ALLE HUNDE BELLEN.\nREX IST EIN HUND.\nBELLT REX?',emoji:'🐶',answer:'JA',choices:['JA','NEIN','NUR MANCHMAL','WEISS NICHT']},
+    {q:'HEUTE IST MONTAG.\nIN 2 TAGEN IST ES?',emoji:'📅',answer:'MITTWOCH',choices:['MITTWOCH','DIENSTAG','DONNERSTAG','FREITAG']},
+    {q:'WENN A GRÖSSER ALS B IST,\nUND B GRÖSSER ALS C IST,\nWER IST AM GRÖSSTEN?',emoji:'',answer:'A',choices:['A','B','C','ALLE GLEICH']},
+    {q:'EIN DUTZEND = 12.\nICH HABE 2 DUTZEND EIER.\nWIE VIELE EIER HABE ICH?',emoji:'🥚',answer:'24',choices:['24','12','22','20']},
+    {q:'LUISA HAT MEHR STIFTE ALS PAUL.\nPAUL HAT MEHR STIFTE ALS FINN.\nWER HAT DIE WENIGSTEN?',emoji:'✏️',answer:'FINN',choices:['FINN','PAUL','LUISA','ALLE GLEICH']},
+    {q:'WENN ES NICHT REGNET, IST ES SONNIG.\nES REGNET NICHT.\nWIE IST DAS WETTER?',emoji:'',answer:'SONNIG',choices:['SONNIG','REGNERISCH','BEWÖLKT','WINDIG']},
+  ]},
+  mathe100:{title:'MATHE 100',gifted:true,questions:[
+    {q:'47 + 13 = ?',emoji:'➕',answer:'60',choices:['60','50','70','58']},
+    {q:'83 - 24 = ?',emoji:'➖',answer:'59',choices:['59','69','49','60']},
+    {q:'25 + 36 = ?',emoji:'➕',answer:'61',choices:['61','51','71','60']},
+    {q:'100 - 37 = ?',emoji:'➖',answer:'63',choices:['63','67','73','53']},
+    {q:'5 × 4 = ?',emoji:'✖️',answer:'20',choices:['20','15','25','24']},
+    {q:'3 × 8 = ?',emoji:'✖️',answer:'24',choices:['24','21','27','28']},
+    {q:'56 + 27 = ?',emoji:'➕',answer:'83',choices:['83','73','93','82']},
+    {q:'72 - 35 = ?',emoji:'➖',answer:'37',choices:['37','47','27','36']},
+    {q:'6 × 7 = ?',emoji:'✖️',answer:'42',choices:['42','36','48','40']},
+    {q:'91 - 46 = ?',emoji:'➖',answer:'45',choices:['45','55','35','44']},
+    {q:'38 + 45 = ?',emoji:'➕',answer:'83',choices:['83','73','93','82']},
+    {q:'9 × 6 = ?',emoji:'✖️',answer:'54',choices:['54','45','63','56']},
+  ]},
+  analogien:{title:'ANALOGIEN',gifted:true,questions:[
+    {q:'HUND BELLT.\nKATZE ... ?',emoji:'🐱',answer:'MIAUT',choices:['MIAUT','BELLT','QUAKT','ZISCHT']},
+    {q:'VOGEL FLIEGT.\nFISCH ... ?',emoji:'🐟',answer:'SCHWIMMT',choices:['SCHWIMMT','FLIEGT','LÄUFT','KRIECHT']},
+    {q:'TAG IST HELL.\nNACHT IST ... ?',emoji:'🌙',answer:'DUNKEL',choices:['DUNKEL','HELL','WARM','KALT']},
+    {q:'FEUER IST HEISS.\nEIS IST ... ?',emoji:'🧊',answer:'KALT',choices:['KALT','HEISS','WARM','NASS']},
+    {q:'BUCH : LESEN = MUSIK : ... ?',emoji:'🎵',answer:'HÖREN',choices:['HÖREN','SEHEN','SCHMECKEN','RIECHEN']},
+    {q:'KLEIN IST DAS GEGENTEIL VON GROSS.\nSCHNELL IST DAS GEGENTEIL VON ... ?',emoji:'🐢',answer:'LANGSAM',choices:['LANGSAM','SCHNELL','GROSS','LAUT']},
+    {q:'ARZT : KRANKENHAUS = LEHRER : ... ?',emoji:'',answer:'SCHULE',choices:['SCHULE','BÜRO','MARKT','KIRCHE']},
+    {q:'SCHUHE : FÜSSE = HANDSCHUHE : ... ?',emoji:'🧤',answer:'HÄNDE',choices:['HÄNDE','KOPF','ARME','KNIE']},
+    {q:'WINTER : KALT = SOMMER : ... ?',emoji:'',answer:'WARM',choices:['WARM','KALT','NASS','WINDIG']},
+    {q:'AUTO : FAHREN = FLUGZEUG : ... ?',emoji:'✈️',answer:'FLIEGEN',choices:['FLIEGEN','FAHREN','SCHWIMMEN','LAUFEN']},
+    {q:'MUTTER : TOCHTER = VATER : ... ?',emoji:'',answer:'SOHN',choices:['SOHN','BRUDER','ONKEL','NEFFE']},
+    {q:'PINSEL : MALEN = STIFT : ... ?',emoji:'✏️',answer:'SCHREIBEN',choices:['SCHREIBEN','MALEN','SCHNEIDEN','KLEBEN']},
+  ]},
+  raetsel:{title:'RÄTSEL',gifted:true,questions:[
+    {q:'ICH HABE ZEIGER, ABER KEINE HÄNDE.\nICH TICKE, ABER LAUFE NICHT.\nWAS BIN ICH?',emoji:'🤔',answer:'EINE UHR',choices:['EINE UHR','EIN KOMPASS','EIN LINEAL','EIN KALENDER']},
+    {q:'ICH BIN IMMER VOR DIR,\nABER MAN KANN MICH NICHT SEHEN.\nWAS BIN ICH?',emoji:'🤔',answer:'DIE ZUKUNFT',choices:['DIE ZUKUNFT','DER SCHATTEN','DER WIND','DIE LUFT']},
+    {q:'JE MEHR DU NIMMST,\nDESTO MEHR WÄCHST ICH.\nWAS BIN ICH?',emoji:'🤔',answer:'EIN LOCH',choices:['EIN LOCH','EIN BERG','EIN BAUM','EIN BALLON']},
+    {q:'ICH HABE ZÄHNE, ABER KANN NICHT BEISSEN.\nWAS BIN ICH?',emoji:'🤔',answer:'EIN KAMM',choices:['EIN KAMM','EINE SÄGE','EINE GABEL','EIN REISSVERSCHLUSS']},
+    {q:'ICH LAUFE, HABE ABER KEINE BEINE.\nICH HABE EIN BETT, ABER SCHLAFE NICHT.\nWAS BIN ICH?',emoji:'🤔',answer:'EIN FLUSS',choices:['EIN FLUSS','EIN ZUG','EIN WIND','EIN REGEN']},
+    {q:'ICH BIN LEICHTER ALS EINE FEDER,\nABER KEIN MENSCH KANN MICH EINE MINUTE HALTEN.\nWAS BIN ICH?',emoji:'🤔',answer:'DER ATEM',choices:['DER ATEM','EIN BALLON','EINE SEIFENBLASE','EIN GEDANKE']},
+    {q:'ICH HABE EIN GESICHT ABER KEINE AUGEN.\nICH HABE ZEIGER ABER KEINE ARME.\nWAS BIN ICH?',emoji:'🤔',answer:'EINE UHR',choices:['EINE UHR','EINE MASKE','EIN BUCH','EIN SPIEGEL']},
+    {q:'AM MORGEN GEHE ICH AUF 4 BEINEN,\nAM MITTAG AUF 2, AM ABEND AUF 3.\nWAS BIN ICH?',emoji:'🤔',answer:'DER MENSCH',choices:['DER MENSCH','EIN HUND','EIN KREBS','EIN STIER']},
+    {q:'ICH BIN IMMER DA, ABER MAN SIEHT MICH NICHT.\nICH BEWEGE DIE BÄUME, ABER BIN UNSICHTBAR.\nWAS BIN ICH?',emoji:'🤔',answer:'DER WIND',choices:['DER WIND','DIE LUFT','DER SCHATTEN','DAS LICHT']},
+    {q:'WAS KANN MAN BRECHEN,\nOHNE ES ANZUFASSEN?',emoji:'🤔',answer:'EIN VERSPRECHEN',choices:['EIN VERSPRECHEN','EIN GLAS','EIN STOCK','EIN EI']},
+    {q:'ICH BIN VOLL LÖCHER UND HALTE DOCH DAS WASSER.\nWAS BIN ICH?',emoji:'🤔',answer:'EIN SCHWAMM',choices:['EIN SCHWAMM','EIN SIEB','EIN NETZ','EIN KORB']},
+    {q:'ICH HABE STÄDTE OHNE HÄUSER,\nWÄLDER OHNE BÄUME.\nWAS BIN ICH?',emoji:'🤔',answer:'EINE LANDKARTE',choices:['EINE LANDKARTE','EIN BUCH','EIN BILD','EIN RÄTSEL']},
+  ]},
+  folgen:{title:'ZAHLENFOLGEN',gifted:true,questions:[
+    {q:'WAS KOMMT ALS NÄCHSTES?\n2 — 4 — 6 — 8 — ?',emoji:'🔢',answer:'10',choices:['10','9','11','12']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n1 — 3 — 5 — 7 — ?',emoji:'🔢',answer:'9',choices:['9','8','10','11']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n5 — 10 — 15 — 20 — ?',emoji:'🔢',answer:'25',choices:['25','22','30','24']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n1 — 2 — 4 — 8 — ?',emoji:'🔢',answer:'16',choices:['16','12','10','14']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n100 — 90 — 80 — 70 — ?',emoji:'🔢',answer:'60',choices:['60','65','50','55']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n3 — 6 — 9 — 12 — ?',emoji:'🔢',answer:'15',choices:['15','13','14','16']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n1 — 4 — 9 — 16 — ?',emoji:'🔢',answer:'25',choices:['25','20','24','30']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n50 — 45 — 40 — 35 — ?',emoji:'🔢',answer:'30',choices:['30','25','32','28']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n2 — 3 — 5 — 8 — ?',emoji:'🔢',answer:'13',choices:['13','11','12','14']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n10 — 20 — 30 — 40 — ?',emoji:'🔢',answer:'50',choices:['50','45','55','60']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n1 — 1 — 2 — 3 — 5 — ?',emoji:'🔢',answer:'8',choices:['8','6','7','9']},
+    {q:'WAS KOMMT ALS NÄCHSTES?\n64 — 32 — 16 — 8 — ?',emoji:'🔢',answer:'4',choices:['4','2','6','8']},
+  ]},
+  raeumlich:{title:'RÄUMLICH',gifted:true,questions:[
+    {q:'EIN WÜRFEL HAT WIE VIELE SEITEN?',emoji:'🎲',answer:'6',choices:['6','4','8','5']},
+    {q:'ICH FALTE EIN QUADRAT EINMAL IN DER MITTE.\nWELCHE FORM ENTSTEHT?',emoji:'📄',answer:'RECHTECK',choices:['RECHTECK','DREIECK','KREIS','QUADRAT']},
+    {q:'EIN QUADRAT HAT 4 ECKEN.\nICH SCHNEIDE EINE ECKE AB.\nWIE VIELE ECKEN HAT ES JETZT?',emoji:'✂️',answer:'5',choices:['5','3','4','6']},
+    {q:'WAS HAT MEHR ECKEN?\nEIN DREIECK ODER EIN SECHSECK?',emoji:'🔷',answer:'SECHSECK',choices:['SECHSECK','DREIECK','BEIDE GLEICH','KEINES']},
+    {q:'ICH STEHE VOR DEM SPIEGEL.\nICH HEBE DIE RECHTE HAND.\nWELCHE HAND HEBT MEIN SPIEGELBILD?',emoji:'🪞',answer:'DIE LINKE',choices:['DIE LINKE','DIE RECHTE','BEIDE','KEINE']},
+    {q:'EIN DREIECK UND EIN QUADRAT ZUSAMMEN —\nWIE VIELE ECKEN HAT DAS INSGESAMT?',emoji:'',answer:'7',choices:['7','6','8','5']},
+    {q:'ICH FALTE EIN DREIECK IN DER MITTE.\nWELCHE FORM ENTSTEHT?',emoji:'',answer:'DREIECK',choices:['DREIECK','QUADRAT','RECHTECK','RAUTE']},
+    {q:'WIE VIELE FLÄCHEN HAT EIN QUADER?',emoji:'📦',answer:'6',choices:['6','4','8','5']},
+    {q:'WENN DU EINEN KREIS HALBIERST —\nWIE HEISST DIE FORM?',emoji:'',answer:'HALBKREIS',choices:['HALBKREIS','OVAL','BOGEN','RECHTECK']},
+    {q:'EIN WÜRFEL HAT WIE VIELE ECKEN?',emoji:'🎲',answer:'8',choices:['8','6','4','12']},
+    {q:'ICH DREHE EIN "P" UM 180 GRAD.\nWAS SEHE ICH?',emoji:'',answer:'d',choices:['d','b','q','p']},
+    {q:'WIE VIELE DREIECKE PASSEN IN EIN QUADRAT,\nWENN MAN ES DIAGONAL HALBIERT?',emoji:'',answer:'2',choices:['2','3','4','1']},
+  ]},
+  gesamttest:{title:'GESAMTTEST',isTest:true,questions:[]},
 };
 
-/* ══════════════════════════════════════════════
-   STATE
-══════════════════════════════════════════════ */
-let totalStars = 0;
-let giftedCompleted = 0;
-let currentGame = null;
-let currentQ = 0;
-let currentQuestions = [];
-let sessionStars = 0;
-let answered = false;
+/* ── GESAMTTEST GENERIEREN ── */
+function buildGesamttest(){
+  const allGames=Object.keys(GAMES).filter(k=>k!=='gesamttest'&&k!=='uhrzeit');
+  // Nimm aus jedem Bereich ein paar Fragen + Uhrzeit extra
+  let pool=[];
+  allGames.forEach(k=>{
+    const qs=GAMES[k].questions;
+    pool.push({...qs[Math.floor(Math.random()*qs.length)],_from:k});
+  });
+  // Uhrzeit: 2 Ziffernblatt-Fragen
+  const clockQs=CLOCK_TIMES.sort(()=>Math.random()-.5).slice(0,2).map(t=>({...clockQ(t),_from:'uhrzeit'}));
+  pool=[...pool,...clockQs];
+  // Shuffle und 10 nehmen
+  pool.sort(()=>Math.random()-.5);
+  return pool.slice(0,10);
+}
 
-/* ══════════════════════════════════════════════
-   TTS
-══════════════════════════════════════════════ */
-function speak(text) {
-  if (!window.speechSynthesis) return;
+/* ── STATE ── */
+let totalStars=0,giftedCompleted=0,currentGame=null,currentQ=0;
+let currentQuestions=[],sessionStars=0,answered=false;
+
+/* ── TTS ── */
+let _bestVoice=null;
+function loadVoice(){
+  if(_bestVoice)return;
+  const voices=speechSynthesis.getVoices();
+  const priority=['Google Deutsch','Flo (German (Germany))','Sandy (German (Germany))','Reed (German (Germany))'];
+  for(const name of priority){const v=voices.find(v=>v.name===name);if(v){_bestVoice=v;break;}}
+  if(!_bestVoice)_bestVoice=voices.find(v=>v.lang&&v.lang.startsWith('de'))||null;
+}
+if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=loadVoice;
+setTimeout(loadVoice,500);
+
+function speak(text){
+  if(!window.speechSynthesis)return;
+  loadVoice();
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text.replace(/\n/g,' '));
-  u.lang = 'de-DE';
-  u.rate = 0.85;
-  u.pitch = 1.1;
+  const noEmoji=text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}]/gu,'');
+  const cleaned=noEmoji.replace(/\n/g,', ').toLowerCase().replace(/= \?/g,'gleich').replace(/\s+/g,' ').trim();
+  const u=new SpeechSynthesisUtterance(cleaned);
+  if(_bestVoice)u.voice=_bestVoice;
+  u.lang='de-DE';u.rate=0.92;u.pitch=1.05;u.volume=1.0;
   speechSynthesis.speak(u);
 }
+function speakQuestion(){speak(currentQuestions[currentQ].q);}
+function speakChoice(text,e){e.stopPropagation();speak(text);}
 
-function speakQuestion() {
-  const q = currentQuestions[currentQ];
-  speak(q.q + (q.emoji ? ' ' : ''));
+/* ── ZIFFERNBLATT ── */
+function drawClock(h,m){
+  const canvas=document.getElementById('clock-canvas');
+  const ctx=canvas.getContext('2d');
+  const cx=80,cy=80,r=74;
+  ctx.clearRect(0,0,160,160);
+  // Hintergrund
+  ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);
+  ctx.fillStyle='#fff';ctx.fill();
+  ctx.strokeStyle='#4361ee';ctx.lineWidth=3;ctx.stroke();
+  // Zahlen
+  ctx.fillStyle='#1a1a2e';ctx.font='bold 13px Courier New';ctx.textAlign='center';ctx.textBaseline='middle';
+  for(let i=1;i<=12;i++){
+    const ang=(i*30-90)*Math.PI/180;
+    ctx.fillText(i,cx+58*Math.cos(ang),cy+58*Math.sin(ang));
+  }
+  // Stundenzeiger
+  const hAng=((h%12)+(m/60))*30-90;
+  ctx.beginPath();ctx.moveTo(cx,cy);
+  ctx.lineTo(cx+40*Math.cos(hAng*Math.PI/180),cy+40*Math.sin(hAng*Math.PI/180));
+  ctx.strokeStyle='#1a1a2e';ctx.lineWidth=5;ctx.lineCap='round';ctx.stroke();
+  // Minutenzeiger
+  const mAng=(m*6-90)*Math.PI/180;
+  ctx.beginPath();ctx.moveTo(cx,cy);
+  ctx.lineTo(cx+60*Math.cos(mAng),cy+60*Math.sin(mAng));
+  ctx.strokeStyle='#4361ee';ctx.lineWidth=3;ctx.lineCap='round';ctx.stroke();
+  // Mittelpunkt
+  ctx.beginPath();ctx.arc(cx,cy,5,0,2*Math.PI);
+  ctx.fillStyle='#e63946';ctx.fill();
 }
 
-/* ══════════════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════════════ */
-function goMenu() {
-  speechSynthesis.cancel && speechSynthesis.cancel();
-  document.getElementById('menu').style.display = '';
-  document.getElementById('game-screen').style.display = 'none';
-  document.getElementById('result-screen').style.display = 'none';
-  updateBadges();
+/* ── NAVIGATION ── */
+function goMenu(){
+  speechSynthesis.cancel&&speechSynthesis.cancel();
+  document.getElementById('menu').style.display='block';
+  document.getElementById('game-screen').style.display='none';
+  document.getElementById('result-screen').style.display='none';
+  updateBadges();renderRanking();
 }
 
-function startGame(id) {
-  currentGame = id;
-  const g = GAMES[id];
-  // shuffle + pick 6
-  currentQuestions = [...g.questions].sort(() => Math.random() - 0.5).slice(0, 6);
-  currentQ = 0;
-  sessionStars = 0;
-  answered = false;
-
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('result-screen').style.display = 'none';
-
-  const gs = document.getElementById('game-screen');
-  gs.style.display = '';
-  gs.className = g.gifted ? 'gifted-game' : '';
-
+function startGame(id){
+  currentGame=id;
+  const g=GAMES[id];
+  if(id==='gesamttest'){
+    currentQuestions=buildGesamttest();
+  } else {
+    currentQuestions=[...g.questions].sort(()=>Math.random()-.5).slice(0,6);
+  }
+  currentQ=0;sessionStars=0;answered=false;
+  document.getElementById('menu').style.display='none';
+  document.getElementById('result-screen').style.display='none';
+  const gs=document.getElementById('game-screen');
+  gs.style.display='block';
+  gs.className=g.gifted?'gifted-game':g.isTest?'test-game':'';
   renderQuestion();
 }
+function restartGame(){startGame(currentGame);}
 
-function restartGame() {
-  startGame(currentGame);
-}
+/* ── FRAGE RENDERN ── */
+function renderQuestion(){
+  answered=false;
+  const q=currentQuestions[currentQ];
+  const total=currentQuestions.length;
+  document.getElementById('q-counter').textContent=`FRAGE ${currentQ+1} / ${total}`;
+  document.getElementById('progress-bar').style.width=`${(currentQ/total)*100}%`;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('feedback').textContent='';
+  document.getElementById('feedback').className='';
 
-/* ══════════════════════════════════════════════
-   QUESTION RENDERING
-══════════════════════════════════════════════ */
-function renderQuestion() {
-  answered = false;
-  const q = currentQuestions[currentQ];
-  const total = currentQuestions.length;
-
-  document.getElementById('q-counter').textContent = `FRAGE ${currentQ + 1} / ${total}`;
-  document.getElementById('progress-bar').style.width = `${(currentQ / total) * 100}%`;
-  document.getElementById('q-emoji').textContent = q.emoji || '';
-  document.getElementById('q-text').textContent = q.q;
-  document.getElementById('feedback').textContent = '';
-  document.getElementById('feedback').className = '';
-
-  const grid = document.getElementById('answer-grid');
-  grid.innerHTML = '';
-  const shuffled = [...q.choices].sort(() => Math.random() - 0.5);
-  shuffled.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'ans-btn';
-    btn.textContent = c;
-    btn.onclick = () => checkAnswer(btn, c, q.answer);
-    grid.appendChild(btn);
-  });
-}
-
-function checkAnswer(btn, chosen, correct) {
-  if (answered) return;
-  answered = true;
-
-  const allBtns = document.querySelectorAll('.ans-btn');
-  allBtns.forEach(b => {
-    b.classList.add('disabled');
-    if (b.textContent === correct) b.classList.add('correct');
-  });
-
-  const fb = document.getElementById('feedback');
-  if (chosen === correct) {
-    btn.classList.add('correct');
-    fb.textContent = '✅ SUPER! RICHTIG!';
-    fb.className = 'ok';
-    speak('Super! Richtig!');
-    sessionStars++;
-    totalStars++;
-    document.getElementById('total-stars').textContent = totalStars;
+  // Ziffernblatt oder Emoji
+  const clockDiv=document.getElementById('clock-display');
+  const emojiDiv=document.getElementById('q-emoji');
+  if(q.clock){
+    clockDiv.style.display='flex';
+    emojiDiv.style.display='none';
+    emojiDiv.textContent='';
+    drawClock(q.clock.h,q.clock.m);
   } else {
-    btn.classList.add('wrong');
-    fb.textContent = `❌ FAST! RICHTIG WAR: ${correct}`;
-    fb.className = 'err';
-    speak('Fast! Die richtige Antwort war: ' + correct);
+    clockDiv.style.display='none';
+    emojiDiv.style.display='block';
+    emojiDiv.textContent=q.emoji||'';
   }
 
-  setTimeout(() => {
-    currentQ++;
-    if (currentQ < currentQuestions.length) {
-      renderQuestion();
-    } else {
-      showResult();
-    }
-  }, 1600);
+  const grid=document.getElementById('answer-grid');
+  grid.innerHTML='';
+  [...q.choices].sort(()=>Math.random()-.5).forEach(c=>{
+    const wrap=document.createElement('div');wrap.className='ans-wrap';
+    const btn=document.createElement('button');btn.className='ans-btn';btn.textContent=c;
+    btn.onclick=()=>checkAnswer(btn,c,q.answer);
+    const spk=document.createElement('button');spk.className='ans-speak';spk.textContent='🔊';
+    spk.onclick=(e)=>speakChoice(c,e);
+    wrap.appendChild(btn);wrap.appendChild(spk);
+    grid.appendChild(wrap);
+  });
 }
 
-/* ══════════════════════════════════════════════
-   RESULT
-══════════════════════════════════════════════ */
-function showResult() {
-  const total = currentQuestions.length;
-  const pct = sessionStars / total;
-
-  if (GAMES[currentGame].gifted) giftedCompleted++;
-
-  document.getElementById('game-screen').style.display = 'none';
-  const rs = document.getElementById('result-screen');
-  rs.style.display = '';
-
-  let emoji, title, msg;
-  if (pct === 1)       { emoji='🏆'; title='PERFEKT!'; msg=`ALLE ${total} FRAGEN RICHTIG! UNGLAUBLICH!`; }
-  else if (pct >= 0.67){ emoji='🎉'; title='SUPER!'; msg=`${sessionStars} VON ${total} RICHTIG! TOLL GEMACHT!`; }
-  else if (pct >= 0.33){ emoji='👍'; title='GUT!'; msg=`${sessionStars} VON ${total} RICHTIG! WEITER ÜBEN!`; }
-  else                 { emoji='💪'; title='WEITER!'; msg=`${sessionStars} VON ${total} RICHTIG! DU SCHAFFST DAS!`; }
-
-  document.getElementById('result-emoji').textContent = emoji;
-  document.getElementById('result-title').textContent = title;
-  document.getElementById('result-text').textContent = msg;
-
-  speak(title + '! ' + msg);
-  updateBadges();
+function checkAnswer(btn,chosen,correct){
+  if(answered)return;
+  answered=true;
+  document.querySelectorAll('.ans-btn').forEach(b=>{
+    b.classList.add('disabled');
+    if(b.textContent===correct)b.classList.add('correct');
+  });
+  const fb=document.getElementById('feedback');
+  if(chosen===correct){
+    btn.classList.add('correct');
+    fb.textContent='✅ SUPER! RICHTIG!';fb.className='ok';
+    speak('Super! Richtig!');
+    sessionStars++;totalStars++;
+    document.getElementById('total-stars').textContent=totalStars;
+    saveCurrentUser();
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent=`❌ FAST! RICHTIG WAR: ${correct}`;fb.className='err';
+    speak('Fast! Die richtige Antwort war: '+correct);
+  }
+  setTimeout(()=>{currentQ++;currentQ<currentQuestions.length?renderQuestion():showResult();},1800);
 }
 
-/* ══════════════════════════════════════════════
-   BADGES
-══════════════════════════════════════════════ */
-function updateBadges() {
-  const b1 = document.getElementById('badge-1');
-  const b2 = document.getElementById('badge-2');
-  const b3 = document.getElementById('badge-3');
-  const b4 = document.getElementById('badge-4');
-  const b4g = document.getElementById('badge-4g');
-  if (totalStars >= 5)  b1.classList.add('earned');
-  if (totalStars >= 15) b2.classList.add('earned');
-  if (totalStars >= 30) b3.classList.add('earned');
-  if (totalStars >= 60) b4.classList.add('earned');
-  if (giftedCompleted >= 1) b4g.classList.add('earned');
+/* ── ERGEBNIS ── */
+function showResult(){
+  const total=currentQuestions.length,pct=sessionStars/total;
+  if(GAMES[currentGame].gifted)giftedCompleted++;
+  saveCurrentUser();
+  document.getElementById('game-screen').style.display='none';
+  document.getElementById('result-screen').style.display='block';
+  let emoji,title,msg;
+  if(pct===1){emoji='🏆';title='PERFEKT!';msg=`ALLE ${total} RICHTIG! UNGLAUBLICH!`;}
+  else if(pct>=.67){emoji='🎉';title='SUPER!';msg=`${sessionStars} VON ${total} RICHTIG! TOLL GEMACHT!`;}
+  else if(pct>=.33){emoji='👍';title='GUT!';msg=`${sessionStars} VON ${total} RICHTIG! WEITER ÜBEN!`;}
+  else{emoji='💪';title='WEITER!';msg=`${sessionStars} VON ${total} RICHTIG! DU SCHAFFST DAS!`;}
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-text').textContent=msg;
+  speak(title+'! '+msg);
+  updateBadges();renderRanking();
 }
+
+/* ── BADGES ── */
+function updateBadges(){
+  if(totalStars>=5)document.getElementById('badge-1').classList.add('earned');
+  if(totalStars>=15)document.getElementById('badge-2').classList.add('earned');
+  if(totalStars>=30)document.getElementById('badge-3').classList.add('earned');
+  if(totalStars>=60)document.getElementById('badge-4').classList.add('earned');
+  if(giftedCompleted>=1)document.getElementById('badge-4g').classList.add('earned');
+}
+
+/* ── START ── */
+showLogin();
 </script>
 </body>
 </html>
